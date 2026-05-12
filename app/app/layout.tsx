@@ -67,6 +67,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           fullName={profile?.full_name ?? null}
           email={user.email ?? ""}
           avatarUrl={profile?.avatar_url ?? null}
+          logoUrl={logoUrl}
           mobileNavItems={APP_NAV}
           mobileNavLabel="Patient"
           settingsHref="/app/settings"

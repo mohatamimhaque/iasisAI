@@ -33,6 +33,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           fullName={profile?.full_name ?? null}
           email={user.email ?? ""}
           avatarUrl={profile?.avatar_url ?? null}
+          logoUrl={logoUrl}
           mobileNavItems={ADMIN_NAV}
           mobileNavLabel="Super admin"
           settingsHref="/admin/settings"

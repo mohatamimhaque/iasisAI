@@ -48,7 +48,8 @@ export function IasisLogo({ className, showWordmark = true, inverse = false, log
             inverse ? "text-background" : "text-foreground",
           )}
         >
-          iasis<span className={inverse ? "text-background/70" : "text-primary"}>.</span>
+          iasis
+          <sup className={cn("text-[0.6em] leading-none", inverse ? "text-background/70" : "text-primary")}>+</sup>
         </span>
       ) : null}
       <span className="sr-only">Iasis AI</span>

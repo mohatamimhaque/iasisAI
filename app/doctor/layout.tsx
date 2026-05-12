@@ -34,6 +34,7 @@ export default async function DoctorLayout({ children }: { children: React.React
           fullName={profile?.full_name ?? null}
           email={user.email ?? ""}
           avatarUrl={profile?.avatar_url ?? null}
+          logoUrl={logoUrl}
         />
         <main className="flex-1">{children}</main>
       </div>

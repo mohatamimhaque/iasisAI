@@ -34,6 +34,7 @@ export default async function ClinicLayout({ children }: { children: React.React
           fullName={profile?.full_name ?? null}
           email={user.email ?? ""}
           avatarUrl={profile?.avatar_url ?? null}
+          logoUrl={logoUrl}
           mobileNavItems={CLINIC_NAV}
           mobileNavLabel="Diagnostic lab"
           settingsHref="/clinic/settings"

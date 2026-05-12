@@ -27,6 +27,7 @@ interface TopBarProps {
   fullName: string | null
   email: string
   avatarUrl?: string | null
+  logoUrl?: string | null
   mobileNavItems?: Array<{ href: string; label: string; icon: LucideIcon }>
   mobileNavLabel?: string
   settingsHref?: string
@@ -38,6 +39,7 @@ export function TopBar({
   fullName,
   email,
   avatarUrl,
+  logoUrl,
   mobileNavItems,
   mobileNavLabel,
   settingsHref,
@@ -66,7 +68,7 @@ export function TopBar({
               </SheetHeader>
               <div className="flex h-full flex-col">
                 <div className="flex h-16 items-center justify-between border-b border-border px-4 pr-12">
-                  <IasisLogo />
+                  <IasisLogo logoUrl={logoUrl} />
                   {mobileNavLabel ? (
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">{mobileNavLabel}</span>
                   ) : null}
@@ -107,7 +109,7 @@ export function TopBar({
           </Sheet>
         ) : null}
         <Link href="/app" className="flex items-center">
-          <IasisLogo />
+          <IasisLogo logoUrl={logoUrl} />
         </Link>
       </div>
       <div className="hidden lg:block">
