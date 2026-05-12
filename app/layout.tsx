@@ -40,11 +40,12 @@ const baseMetadata: Metadata = {
   ],
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    ...baseMetadata,
-    icons: { icon: "/favicon.ico" },
-  }
+export const metadata: Metadata = {
+  ...baseMetadata,
+  icons: { icon: "/favicon.ico" },
+  other: {
+    "sf-pro-font": '<link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet" />',
+  },
 }
 
 export const viewport: Viewport = {
@@ -62,8 +63,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} bg-background`}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} bg-background`} suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         {children}
         <Toaster richColors closeButton position="top-center" />
         {process.env.NODE_ENV === "production" && <Analytics />}

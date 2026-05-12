@@ -36,8 +36,8 @@ const PILLARS = [
 export function ValuePillars() {
   return (
     <section className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="max-w-2xl">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28" suppressHydrationWarning>
+        <div className="max-w-2xl" suppressHydrationWarning>
           <p className="text-sm uppercase tracking-wider text-primary">The platform</p>
           <h2 className="mt-3 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground sm:text-5xl">
             One layer underneath every healthcare interaction in Bangladesh.
@@ -48,7 +48,7 @@ export function ValuePillars() {
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3" suppressHydrationWarning>
           {PILLARS.map((pillar) => (
             <li key={pillar.title} className="group bg-card p-8 transition-colors hover:bg-secondary/40">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">

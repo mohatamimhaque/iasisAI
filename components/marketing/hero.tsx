@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button"
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8 lg:pb-28 lg:pt-24">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8 lg:pb-28 lg:pt-24" suppressHydrationWarning>
+        <div className="lg:col-span-7" suppressHydrationWarning>
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground" suppressHydrationWarning>
             <span className="relative inline-flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/50" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
@@ -27,7 +27,7 @@ export function Hero() {
             country, one platform.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" suppressHydrationWarning>
             <Button asChild size="lg">
               <Link href="/auth/sign-up">
                 Create your account
@@ -39,8 +39,8 @@ export function Hero() {
             </Button>
           </div>
 
-          <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-8">
-            <div>
+          <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-8" suppressHydrationWarning>
+            <div suppressHydrationWarning>
               <dt className="text-xs uppercase tracking-wider text-muted-foreground">Districts</dt>
               <dd className="mt-1 font-serif text-3xl text-foreground">64</dd>
             </div>
@@ -55,9 +55,9 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="lg:col-span-5">
-          <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-muted">
+        <div className="lg:col-span-5" suppressHydrationWarning>
+          <div className="relative" suppressHydrationWarning>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-muted" suppressHydrationWarning>
               <Image
                 src="/marketing/hero-consult.jpg"
                 alt="A patient using Iasis AI for a telemedicine consultation in a calm, modern clinic in Dhaka."

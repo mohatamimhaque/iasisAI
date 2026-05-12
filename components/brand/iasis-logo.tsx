@@ -11,7 +11,7 @@ export function IasisLogo({ className, showWordmark = true, inverse = false, log
   const showImage = Boolean(logoUrl)
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex items-center gap-2", className)} suppressHydrationWarning>
       <span aria-hidden="true" className="relative inline-flex h-7 w-7 items-center justify-center">
         {showImage ? (
           <img src={logoUrl ?? ""} alt="Iasis AI logo" className="h-7 w-7 rounded-md object-contain" />

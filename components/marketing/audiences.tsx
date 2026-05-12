@@ -50,22 +50,23 @@ const AUDIENCES = [
 export function Audiences() {
   return (
     <section className="border-t border-border/60 bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="max-w-2xl">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28" suppressHydrationWarning>
+        <div className="max-w-2xl" suppressHydrationWarning>
           <p className="text-sm uppercase tracking-wider text-primary">Who it&apos;s for</p>
           <h2 className="mt-3 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground sm:text-5xl">
             Built for every side of Bangladeshi healthcare.
           </h2>
         </div>
 
-        <div className="mt-16 space-y-20 lg:space-y-28">
+        <div className="mt-16 space-y-20 lg:space-y-28" suppressHydrationWarning>
           {AUDIENCES.map((aud) => (
             <article
               key={aud.id}
               id={aud.id}
               className="grid scroll-mt-24 grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16"
+              suppressHydrationWarning
             >
-              <div className={`lg:col-span-6 ${aud.reverse ? "lg:order-2" : ""}`}>
+              <div className={`lg:col-span-6 ${aud.reverse ? "lg:order-2" : ""}`} suppressHydrationWarning>
                 <p className="text-sm uppercase tracking-wider text-primary">{aud.eyebrow}</p>
                 <h3 className="mt-3 text-balance font-serif text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   {aud.title}
@@ -88,8 +89,8 @@ export function Audiences() {
                 </Link>
               </div>
 
-              <div className={`lg:col-span-6 ${aud.reverse ? "lg:order-1" : ""}`}>
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted">
+              <div className={`lg:col-span-6 ${aud.reverse ? "lg:order-1" : ""}`} suppressHydrationWarning>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted" suppressHydrationWarning>
                   <Image
                     src={aud.image || "/placeholder.svg"}
                     alt={aud.imageAlt}

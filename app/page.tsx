@@ -17,7 +17,7 @@ export default async function HomePage() {
   if (user) redirect("/app")
 
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    <div className="flex min-h-svh flex-col bg-background" suppressHydrationWarning>
       <SiteHeader />
       <main className="flex-1">
         <Hero />

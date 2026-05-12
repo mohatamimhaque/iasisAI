@@ -1,4 +1,4 @@
-@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Oswald:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -151,8 +151,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: "SF Pro Display", var(--font-inter), Inter, sans-serif !important;
+    font-family: "Google Sans", "Montserrat", "Open Sans", "Roboto", "Lato", "Oswald", sans-serif !important;
     font-feature-settings: "ss01", "cv11";
+  }
+  
+  .font-serif{
+    font-family: "Google Sans", "Montserrat", "Open Sans", "Roboto", "Lato", "Oswald", sans-serif !important;
   }
 
   button {
