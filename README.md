@@ -28,7 +28,7 @@ Iasis AI is a full-stack healthcare platform built with Next.js, Supabase, and C
 1) Install dependencies
 
 ```
-pnpm install
+npm install
 ```
 
 2) Create an env file
@@ -40,7 +40,7 @@ cp .env.example .env.local
 3) Start the dev server
 
 ```
-pnpm dev
+npm run dev
 ```
 
 ## Environment variables
@@ -62,11 +62,11 @@ Notes:
 
 ## Scripts
 
-- pnpm dev: start the dev server
-- pnpm build: build for production
-- pnpm start: run the production build
-- pnpm lint: lint the codebase
-- pnpm backup:supabase: run the Supabase backup script
+- npm run dev: start the dev server
+- npm run build: build for production
+- npm start: run the production build
+- npm run lint: lint the codebase
+- npm run backup:supabase: run the Supabase backup script
 
 ## Admin features
 
@@ -81,7 +81,7 @@ Uploads are handled server-side to avoid CORS issues. Branding and profile photo
 ## Deployment
 
 1) Add env vars to your hosting provider.
-2) Deploy with `pnpm build` and `pnpm start`.
+2) Deploy with `npm run build` and `npm start`.
 
 ## Security notes
 
