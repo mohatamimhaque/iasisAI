@@ -41,11 +41,9 @@ const baseMetadata: Metadata = {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { faviconUrl } = await getBrandingConfig()
-
   return {
     ...baseMetadata,
-    icons: faviconUrl ? { icon: faviconUrl } : undefined,
+    icons: { icon: "/favicon.ico" },
   }
 }
 
