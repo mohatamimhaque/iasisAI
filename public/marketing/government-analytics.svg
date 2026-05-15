@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#0f172a"/>
+
+  <!-- Background glow blobs -->
+  <circle cx="150" cy="150" r="220" fill="#1e3a5f" opacity="0.5"/>
+  <circle cx="650" cy="450" r="260" fill="#14532d" opacity="0.25"/>
+  <circle cx="700" cy="100" r="150" fill="#1d4ed8" opacity="0.15"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="0" y1="120" x2="800" y2="120" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="240" x2="800" y2="240" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="360" x2="800" y2="360" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="480" x2="800" y2="480" stroke="#1e293b" stroke-width="1"/>
+  <line x1="160" y1="0" x2="160" y2="600" stroke="#1e293b" stroke-width="1"/>
+  <line x1="320" y1="0" x2="320" y2="600" stroke="#1e293b" stroke-width="1"/>
+  <line x1="480" y1="0" x2="480" y2="600" stroke="#1e293b" stroke-width="1"/>
+  <line x1="640" y1="0" x2="640" y2="600" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Bangladesh map outline (simplified polygon) -->
+  <polygon
+    points="320,80 360,72 400,78 440,90 460,115 470,145 460,175 450,200 435,230 420,255 400,268 380,275 355,268 330,252 315,230 305,205 298,180 300,150 308,122"
+    fill="#16a34a" fill-opacity="0.18" stroke="#22c55e" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- District data points on map -->
+  <circle cx="350" cy="130" r="5" fill="#4ade80" opacity="0.9"/>
+  <circle cx="390" cy="115" r="7" fill="#22c55e" opacity="0.9"/>
+  <circle cx="430" cy="145" r="4" fill="#4ade80" opacity="0.9"/>
+  <circle cx="415" cy="175" r="8" fill="#16a34a" opacity="1"/>
+  <circle cx="415" cy="175" r="14" fill="#16a34a" opacity="0.3"/>
+  <circle cx="380" cy="210" r="6" fill="#4ade80" opacity="0.9"/>
+  <circle cx="345" cy="195" r="5" fill="#22c55e" opacity="0.9"/>
+  <circle cx="360" cy="240" r="4" fill="#4ade80" opacity="0.7"/>
+  <circle cx="430" cy="220" r="5" fill="#22c55e" opacity="0.8"/>
+  <circle cx="410" cy="250" r="3" fill="#86efac" opacity="0.7"/>
+  <circle cx="320" cy="160" r="4" fill="#4ade80" opacity="0.7"/>
+  <circle cx="450" cy="185" r="4" fill="#86efac" opacity="0.8"/>
+
+  <!-- Connection lines between districts -->
+  <line x1="350" y1="130" x2="390" y2="115" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+  <line x1="390" y1="115" x2="430" y2="145" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+  <line x1="415" y1="175" x2="380" y2="210" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+  <line x1="415" y1="175" x2="430" y2="145" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+  <line x1="380" y1="210" x2="345" y2="195" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+  <line x1="380" y1="210" x2="360" y2="240" stroke="#22c55e" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- "Dhaka" label on map -->
+  <text x="422" y="172" font-family="sans-serif" font-size="8" fill="#86efac" font-weight="600">Dhaka</text>
+
+  <!-- Left panel: stat cards -->
+  <rect x="40" y="60" width="200" height="72" rx="12" fill="#0f2d1f" stroke="#166534" stroke-width="1"/>
+  <text x="58" y="86" font-family="sans-serif" font-size="9" fill="#86efac" letter-spacing="0.5">CONSULTATIONS TODAY</text>
+  <text x="58" y="114" font-family="sans-serif" font-size="28" font-weight="800" fill="#4ade80">24,817</text>
+  <text x="58" y="126" font-family="sans-serif" font-size="8" fill="#16a34a">↑ 12% vs yesterday</text>
+
+  <rect x="40" y="146" width="200" height="72" rx="12" fill="#1e1b4b" stroke="#3730a3" stroke-width="1"/>
+  <text x="58" y="172" font-family="sans-serif" font-size="9" fill="#a5b4fc" letter-spacing="0.5">ACTIVE DISTRICTS</text>
+  <text x="58" y="200" font-family="sans-serif" font-size="28" font-weight="800" fill="#818cf8">64 / 64</text>
+  <text x="58" y="212" font-family="sans-serif" font-size="8" fill="#6366f1">All districts connected</text>
+
+  <rect x="40" y="232" width="200" height="72" rx="12" fill="#1c1917" stroke="#78350f" stroke-width="1"/>
+  <text x="58" y="258" font-family="sans-serif" font-size="9" fill="#fcd34d" letter-spacing="0.5">OUTBREAK ALERTS</text>
+  <text x="58" y="286" font-family="sans-serif" font-size="28" font-weight="800" fill="#f59e0b">0</text>
+  <text x="58" y="298" font-family="sans-serif" font-size="8" fill="#92400e">No active alerts</text>
+
+  <rect x="40" y="318" width="200" height="72" rx="12" fill="#0f2d1f" stroke="#166534" stroke-width="1"/>
+  <text x="58" y="344" font-family="sans-serif" font-size="9" fill="#86efac" letter-spacing="0.5">REGISTERED CITIZENS</text>
+  <text x="58" y="372" font-family="sans-serif" font-size="28" font-weight="800" fill="#4ade80">2.4M</text>
+  <text x="58" y="384" font-family="sans-serif" font-size="8" fill="#16a34a">↑ 8,200 this week</text>
+
+  <!-- Right panel: bar chart -->
+  <rect x="520" y="60" width="240" height="200" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="538" y="86" font-family="sans-serif" font-size="9" fill="#94a3b8" letter-spacing="0.5">CONSULTATIONS BY DIVISION</text>
+
+  <!-- Bars -->
+  <rect x="543" y="170" width="22" height="60" rx="4" fill="#16a34a" opacity="0.9"/>
+  <text x="548" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Dhaka</text>
+
+  <rect x="576" y="148" width="22" height="82" rx="4" fill="#16a34a" opacity="0.9"/>
+  <text x="578" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Chittagong</text>
+
+  <rect x="609" y="185" width="22" height="45" rx="4" fill="#22c55e" opacity="0.7"/>
+  <text x="612" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Rajshahi</text>
+
+  <rect x="642" y="192" width="22" height="38" rx="4" fill="#22c55e" opacity="0.7"/>
+  <text x="645" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Khulna</text>
+
+  <rect x="675" y="200" width="22" height="30" rx="4" fill="#4ade80" opacity="0.6"/>
+  <text x="678" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Sylhet</text>
+
+  <rect x="708" y="195" width="22" height="35" rx="4" fill="#4ade80" opacity="0.6"/>
+  <text x="710" y="244" font-family="sans-serif" font-size="7" fill="#64748b">Barisal</text>
+
+  <!-- Chart baseline -->
+  <line x1="538" y1="230" x2="742" y2="230" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Right panel: line chart -->
+  <rect x="520" y="278" width="240" height="140" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="538" y="302" font-family="sans-serif" font-size="9" fill="#94a3b8" letter-spacing="0.5">WEEKLY TRIAGE TREND</text>
+
+  <!-- Line chart path -->
+  <polyline
+    points="540,380 570,360 600,368 630,340 660,320 690,328 720,305 740,295"
+    fill="none" stroke="#22c55e" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Area fill under line -->
+  <polygon
+    points="540,400 540,380 570,360 600,368 630,340 660,320 690,328 720,305 740,295 740,400"
+    fill="#16a34a" opacity="0.12"/>
+
+  <!-- Data points on line -->
+  <circle cx="540" cy="380" r="3" fill="#4ade80"/>
+  <circle cx="570" cy="360" r="3" fill="#4ade80"/>
+  <circle cx="600" cy="368" r="3" fill="#4ade80"/>
+  <circle cx="630" cy="340" r="3" fill="#4ade80"/>
+  <circle cx="660" cy="320" r="3" fill="#4ade80"/>
+  <circle cx="690" cy="328" r="3" fill="#4ade80"/>
+  <circle cx="720" cy="305" r="3" fill="#4ade80"/>
+  <circle cx="740" cy="295" r="4" fill="#86efac"/>
+
+  <!-- Day labels -->
+  <text x="534" y="414" font-family="sans-serif" font-size="7" fill="#475569">Mon</text>
+  <text x="564" y="414" font-family="sans-serif" font-size="7" fill="#475569">Tue</text>
+  <text x="595" y="414" font-family="sans-serif" font-size="7" fill="#475569">Wed</text>
+  <text x="625" y="414" font-family="sans-serif" font-size="7" fill="#475569">Thu</text>
+  <text x="655" y="414" font-family="sans-serif" font-size="7" fill="#475569">Fri</text>
+  <text x="685" y="414" font-family="sans-serif" font-size="7" fill="#475569">Sat</text>
+  <text x="715" y="414" font-family="sans-serif" font-size="7" fill="#475569">Sun</text>
+
+  <!-- Bottom status bar -->
+  <rect x="40" y="430" width="720" height="50" rx="12" fill="#0f2d1f" stroke="#166534" stroke-width="1"/>
+  <circle cx="68" cy="455" r="7" fill="#4ade80" opacity="0.8"/>
+  <circle cx="68" cy="455" r="4" fill="#22c55e"/>
+  <text x="82" y="459" font-family="sans-serif" font-size="10" font-weight="600" fill="#86efac">System online · 64/64 districts reporting · Last updated 2 min ago</text>
+  <text x="620" y="459" font-family="sans-serif" font-size="9" fill="#4ade80">DGHS · Live</text>
+
+  <!-- Title watermark -->
+  <text x="40" y="540" font-family="sans-serif" font-size="13" font-weight="700" fill="#1e293b" letter-spacing="1">NATIONAL HEALTH INTELLIGENCE · IASIS AI</text>
+</svg>

@@ -104,3 +104,29 @@ export async function deleteAiConfig(id: string) {
   revalidatePath("/admin/system")
   revalidatePath("/admin/ai-models")
 }
+
+export async function upsertContactDetails(formData: FormData) {
+  const { supabase, userId } = await assertAdmin()
+
+  const fields = [
+    { key: "contact_email", label: "Contact email", category: "contact" },
+    { key: "contact_phone", label: "Contact phone", category: "contact" },
+    { key: "contact_office", label: "Office address", category: "contact" },
+    { key: "contact_partnership_email", label: "Partnership email", category: "contact" },
+  ]
+
+  const rows = fields.map(({ key, label, category }) => ({
+    key,
+    value: String(formData.get(key) ?? "").trim(),
+    label,
+    category,
+    value_type: "text",
+    updated_by: userId,
+    updated_at: new Date().toISOString(),
+  }))
+
+  const { error } = await supabase.from("site_config").upsert(rows, { onConflict: "key" })
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/system")
+  revalidatePath("/contact")
+}

@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation"
-import { Brain, Cog, Trash2 } from "lucide-react"
+import { Brain, Cog, Mail, MapPin, Phone, Trash2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { deleteAiConfig, deleteSiteConfig, upsertAiConfig, upsertSiteConfig } from "@/app/admin/system/actions"
+import { deleteAiConfig, deleteSiteConfig, upsertAiConfig, upsertContactDetails, upsertSiteConfig } from "@/app/admin/system/actions"
 import { BrandingUploader } from "@/components/admin/branding-uploader"
 
 export const metadata = { title: "System CMS" }
@@ -162,6 +162,70 @@ export default async function AdminSystemPage() {
             </div>
           </form>
         </details>
+      </section>
+
+      {/* Contact details */}
+      <section className="mt-10">
+        <div className="flex items-center gap-2">
+          <Mail className="size-5 text-primary" />
+          <h2 className="font-serif text-2xl text-foreground">Contact details</h2>
+        </div>
+        <p className="mt-1 text-sm text-muted-foreground">
+          These values are displayed on the public <code>/contact</code> page.
+        </p>
+        <form action={upsertContactDetails} className="mt-4 rounded-2xl border border-border bg-card p-6">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="contact_email" className="flex items-center gap-1.5">
+                <Mail className="size-3.5" /> Email
+              </Label>
+              <Input
+                id="contact_email"
+                name="contact_email"
+                type="email"
+                defaultValue={brandingMap.get("contact_email") ?? "hello@iasis.health"}
+                placeholder="hello@iasis.health"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="contact_phone" className="flex items-center gap-1.5">
+                <Phone className="size-3.5" /> Phone
+              </Label>
+              <Input
+                id="contact_phone"
+                name="contact_phone"
+                defaultValue={brandingMap.get("contact_phone") ?? "+880 1700 000 000"}
+                placeholder="+880 1700 000 000"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="contact_office" className="flex items-center gap-1.5">
+                <MapPin className="size-3.5" /> Office address
+              </Label>
+              <Input
+                id="contact_office"
+                name="contact_office"
+                defaultValue={brandingMap.get("contact_office") ?? "Gulshan-2, Dhaka 1212"}
+                placeholder="Gulshan-2, Dhaka 1212"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="contact_partnership_email" className="flex items-center gap-1.5">
+                <Mail className="size-3.5" /> Partnership email
+              </Label>
+              <Input
+                id="contact_partnership_email"
+                name="contact_partnership_email"
+                type="email"
+                defaultValue={brandingMap.get("contact_partnership_email") ?? "partners@iasis.health"}
+                placeholder="partners@iasis.health"
+              />
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button type="submit">Save contact details</Button>
+          </div>
+        </form>
       </section>
 
       {/* Site config */}

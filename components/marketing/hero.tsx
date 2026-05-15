@@ -13,17 +13,17 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/50" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
             </span>
-            Now in private preview across Dhaka, Chattogram & Sylhet
+            Healthcare built for every neighborhood
           </div>
 
           <h1 className="mt-6 text-balance font-serif text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Healthcare that finally{" "}
-            <span className="italic text-primary">reaches every Bangladeshi</span>.
+            <span className="italic text-primary">reaches every South Asiai</span>.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
             Iasis AI is the national, AI-powered healthcare layer connecting every citizen, doctor, clinic and hospital
-            across Bangladesh. From symptom triage to telemedicine, prescriptions and lab reports — one record, one
+            across South Asia. From symptom triage to telemedicine, prescriptions and lab reports — one record, one
             country, one platform.
           </p>
 
@@ -76,7 +76,7 @@ export function Hero() {
                 <span className="text-xs font-medium text-foreground">DGHS-aligned</span>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                Built to the standards of Bangladesh&apos;s Directorate General of Health Services.
+                Built to the standards of South Asia&apos;s Directorate General of Health Services.
               </p>
             </div>
           </div>

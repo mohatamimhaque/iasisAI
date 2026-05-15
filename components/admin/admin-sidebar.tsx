@@ -14,6 +14,7 @@ import {
   Home,
   LifeBuoy,
   Settings,
+  Tag,
   Users,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -31,6 +32,7 @@ export const ADMIN_NAV = [
   { href: "/admin/reports", label: "Reports", icon: FileBarChart },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
   { href: "/admin/content", label: "Content", icon: FileText },
+  { href: "/admin/pricing", label: "Pricing", icon: Tag },
   { href: "/admin/support", label: "Support", icon: LifeBuoy },
   { href: "/admin/system", label: "System", icon: Cog },
 ]

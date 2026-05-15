@@ -1340,3 +1340,85 @@ create policy triage_sessions_admin_update on public.triage_sessions
   for update using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
 create policy triage_sessions_admin_delete on public.triage_sessions
   for delete using (public.is_admin(auth.uid()));
+
+
+
+-- ============================================================
+-- site_config – contact details seed
+-- ============================================================
+
+INSERT INTO public.site_config (key, value, value_type, label, category)
+VALUES
+  ('contact_email',             'hello@iasis.health',    'text', 'Contact email',     'contact'),
+  ('contact_phone',             '+880 1700 000 000',     'text', 'Contact phone',      'contact'),
+  ('contact_office',            'Gulshan-2, Dhaka 1212', 'text', 'Office address',     'contact'),
+  ('contact_partnership_email', 'partners@iasis.health', 'text', 'Partnership email',  'contact')
+ON CONFLICT (key) DO NOTHING;
+
+
+
+-- ============================================================
+-- pricing_plans
+-- ============================================================
+
+CREATE TABLE public.pricing_plans (
+    id             uuid DEFAULT gen_random_uuid() NOT NULL,
+    name           text NOT NULL,
+    price          text NOT NULL,
+    cadence        text NOT NULL DEFAULT 'forever',
+    description    text,
+    features       text[] DEFAULT '{}'::text[] NOT NULL,
+    cta_label      text NOT NULL DEFAULT 'Get started',
+    cta_href       text NOT NULL DEFAULT '/auth/sign-up',
+    is_highlighted boolean DEFAULT false NOT NULL,
+    is_active      boolean DEFAULT true NOT NULL,
+    order_index    integer DEFAULT 0 NOT NULL,
+    updated_by     uuid,
+    updated_at     timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT pricing_plans_pkey PRIMARY KEY (id),
+    CONSTRAINT pricing_plans_updated_by_fkey
+        FOREIGN KEY (updated_by) REFERENCES auth.users(id) ON DELETE SET NULL
+);
+
+CREATE TRIGGER pricing_plans_updated_at
+    BEFORE UPDATE ON public.pricing_plans
+    FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+ALTER TABLE public.pricing_plans ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY pricing_plans_public_read ON public.pricing_plans
+    FOR SELECT USING (true);
+
+CREATE POLICY pricing_plans_admin_all ON public.pricing_plans
+    USING (public.is_admin(auth.uid()))
+    WITH CHECK (public.is_admin(auth.uid()));
+
+INSERT INTO public.pricing_plans
+    (name, price, cadence, description, features, cta_label, cta_href, is_highlighted, is_active, order_index)
+VALUES
+  ('Free Citizen', '৳0', 'forever',
+   'AI-first care, accessible to every Bangladeshi.',
+   ARRAY['Unlimited AI triage and AI chat','Family member profiles','Medicine reminders','Lab report storage and AI summary','Emergency SOS to nearest hospital'],
+   'Sign up free', '/auth/sign-up', false, true, 1),
+
+  ('Doctor Consultation', '৳200', '/ consultation',
+   'Verified BMDC doctor review and digital prescription.',
+   ARRAY['Verified BMDC doctor','Audio or video telemedicine','Digital prescription with pharmacy QR','Follow-up chat within 7 days','Saved to your medical record'],
+   'Get started', '/auth/sign-up', true, true, 2),
+
+  ('Specialist', '৳800', '/ consultation',
+   'Cardiology, neurology, oncology, mental health.',
+   ARRAY['Senior consultant review','Priority appointment booking','Second-opinion detail report','Care plan with follow-ups','Audio/video on demand'],
+   'Browse specialists', '/auth/sign-up', false, true, 3);
+
+
+
+-- ============================================================
+-- profiles – international location fields
+-- ============================================================
+
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS country        text,
+  ADD COLUMN IF NOT EXISTS state_province text,
+  ADD COLUMN IF NOT EXISTS city           text,
+  ADD COLUMN IF NOT EXISTS address_line   text;

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -17,14 +17,14 @@ const ROLE_OPTIONS: { value: Role; label: string; description: string }[] = [
   { value: "clinic", label: "Clinic / Hospital", description: "We want to onboard our facility" },
 ]
 
-export function SignupForm() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const defaultRole = (searchParams.get("role") as Role) ?? "patient"
+interface SignupFormProps {
+  role: Role
+  onRoleChange: (role: Role) => void
+}
 
-  const [role, setRole] = useState<Role>(
-    ROLE_OPTIONS.some((o) => o.value === defaultRole) ? defaultRole : "patient",
-  )
+export function SignupForm({ role, onRoleChange }: SignupFormProps) {
+  const router = useRouter()
+
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -82,7 +82,7 @@ export function SignupForm() {
           <Label>I am a...</Label>
           <RadioGroup
             value={role}
-            onValueChange={(v) => setRole(v as Role)}
+            onValueChange={(v) => onRoleChange(v as Role)}
             className="grid grid-cols-1 gap-2 sm:grid-cols-3"
           >
             {ROLE_OPTIONS.map((opt) => (

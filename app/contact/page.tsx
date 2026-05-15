@@ -1,9 +1,24 @@
 import { Mail, MapPin, Phone } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 import { MarketingPage } from "@/components/marketing/marketing-page"
 
 export const metadata = { title: "Contact Iasis AI" }
+export const dynamic = "force-dynamic"
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const supabase = await createClient()
+  const { data: rows } = await supabase
+    .from("site_config")
+    .select("key, value")
+    .in("key", ["contact_email", "contact_phone", "contact_office", "contact_partnership_email"])
+
+  const cfg = Object.fromEntries((rows ?? []).filter((r) => r.value).map((r) => [r.key, r.value as string]))
+
+  const email = cfg.contact_email ?? "hello@iasis.health"
+  const phone = cfg.contact_phone ?? "+880 1700 000 000"
+  const office = cfg.contact_office ?? "Gulshan-2, Dhaka 1212"
+  const partnershipEmail = cfg.contact_partnership_email ?? "partners@iasis.health"
+
   return (
     <MarketingPage
       eyebrow="Contact"
@@ -12,9 +27,9 @@ export default function ContactPage() {
     >
       <div className="grid gap-6 sm:grid-cols-3">
         {[
-          { icon: Mail, label: "Email", value: "hello@iasis.health" },
-          { icon: Phone, label: "Phone", value: "+880 1700 000 000" },
-          { icon: MapPin, label: "Office", value: "Gulshan-2, Dhaka 1212" },
+          { icon: Mail, label: "Email", value: email },
+          { icon: Phone, label: "Phone", value: phone },
+          { icon: MapPin, label: "Office", value: office },
         ].map((item) => (
           <article key={item.label} className="rounded-2xl border border-border bg-card p-6">
             <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -30,7 +45,7 @@ export default function ContactPage() {
         <h2 className="font-serif text-2xl tracking-tight text-foreground">Partnership enquiries</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           For clinic onboarding, diagnostic lab partnerships, government deployments, and enterprise health programs,
-          email <span className="text-foreground">partners@iasis.health</span>. We respond within one business day.
+          email <span className="text-foreground">{partnershipEmail}</span>. We respond within one business day.
         </p>
       </div>
     </MarketingPage>

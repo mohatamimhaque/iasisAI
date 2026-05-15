@@ -18,7 +18,7 @@ export default async function SettingsPage() {
   const [{ data: profile }, { data: record }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("full_name, phone, date_of_birth, gender, blood_group, division, district, role, avatar_url")
+      .select("full_name, phone, date_of_birth, gender, blood_group, country, state_province, city, address_line, role, avatar_url")
       .eq("id", user.id)
       .single(),
     supabase
