@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { IasisLogo } from "@/components/brand/iasis-logo"
+import { LanguageToggle } from "@/components/language-toggle"
 import { SignupForm } from "@/components/auth/signup-form"
 
 type Role = "patient" | "doctor" | "clinic"
@@ -87,9 +88,12 @@ export function SignUpShell({ logoUrl }: { logoUrl?: string | null }) {
 
         {/* Logo + quote */}
         <div className="relative z-10 flex h-full flex-col justify-between p-10 text-background">
-          <Link href="/" className="inline-flex w-fit">
-            <IasisLogo inverse logoUrl={logoUrl} />
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="inline-flex w-fit">
+              <IasisLogo inverse logoUrl={logoUrl} />
+            </Link>
+            <LanguageToggle className="text-background hover:bg-background/10" />
+          </div>
 
           {/* Quote — re-mounts on role change to trigger fade-in */}
           <figure key={role} className="max-w-md animate-in fade-in slide-in-from-bottom-3 duration-300 fill-mode-both">
@@ -107,6 +111,7 @@ export function SignUpShell({ logoUrl }: { logoUrl?: string | null }) {
           <Link href="/">
             <IasisLogo logoUrl={logoUrl} />
           </Link>
+          <LanguageToggle />
         </header>
         <div className="flex flex-1 items-center justify-center px-6 pb-12 pt-4 sm:px-12">
           <div className="w-full max-w-sm">

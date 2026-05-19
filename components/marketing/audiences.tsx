@@ -7,7 +7,7 @@ const AUDIENCES = [
     id: "citizens",
     eyebrow: "For citizens",
     title: "Healthcare that travels with you.",
-    body: "From rural villages to Gulshan, every Bangladeshi gets a single health record, AI triage at midnight, and a trusted doctor a tap away. No more lost lab reports. No more guessing.",
+    body: "From rural villages to city centers, every South Asian gets a single health record, AI triage at midnight, and a trusted doctor a tap away. No more lost lab reports. No more guessing.",
     bullets: ["Triage in Bangla or English", "Family profiles (parents, children)", "Lab reports & prescriptions in one place"],
     image: "/marketing/citizen-mobile-health.svg",
     imageAlt: "A citizen using Iasis AI on mobile — health score, reminders and family profiles",
@@ -20,7 +20,7 @@ const AUDIENCES = [
     body: "Verified specialists run consultations, prescribe, and follow up — without the admin. Iasis handles bookings, payments, clinical notes and patient history so you can focus on care.",
     bullets: ["BMDC-verified profiles", "Audio, video & chat consults", "Smart clinical notes & follow-ups"],
     image: "/marketing/doctor-portrait.jpg",
-    imageAlt: "A Bangladeshi doctor in a modern hospital",
+    imageAlt: "A South Asian doctor in a modern hospital",
     cta: { label: "Join as a doctor", href: "/auth/sign-up?role=doctor" },
     reverse: true,
   },
@@ -31,17 +31,17 @@ const AUDIENCES = [
     body: "Onboard your doctors, manage schedules, accept in-person and online bookings, and track operations in real time. Iasis is your full clinical operating layer — at the price of a phone bill.",
     bullets: ["Doctor & schedule management", "In-person + online bookings", "Operational analytics"],
     image: "/marketing/clinic-interior.jpg",
-    imageAlt: "Interior of a modern small clinic in Bangladesh",
+    imageAlt: "Interior of a modern small clinic in South Asia",
     cta: { label: "Onboard your clinic", href: "/auth/sign-up?role=clinic" },
   },
   {
     id: "government",
     eyebrow: "For the government",
     title: "National health, in real time.",
-    body: "An anonymised, district-level view of consultations, prescriptions, outbreaks and outcomes — built to support DGHS, the Health Ministry, and policy makers shaping Bangladesh's healthcare future.",
+    body: "An anonymised, district-level view of consultations, prescriptions, outbreaks and outcomes — built to support ministries, health agencies, and policy makers shaping South Asia's healthcare future.",
     bullets: ["Anonymised analytics by district", "Outbreak & trend detection", "API access for partner agencies"],
     image: "/marketing/government-analytics.svg",
-    imageAlt: "National health intelligence dashboard showing district-level analytics across Bangladesh",
+    imageAlt: "Regional health intelligence dashboard showing district-level analytics across South Asia",
     cta: { label: "Talk to our team", href: "#" },
     reverse: true,
   },
@@ -54,7 +54,7 @@ export function Audiences() {
         <div className="max-w-2xl" suppressHydrationWarning>
           <p className="text-sm uppercase tracking-wider text-primary">Who it&apos;s for</p>
           <h2 className="mt-3 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground sm:text-5xl">
-            Built for every side of Bangladeshi healthcare.
+            Built for every side of South Asian healthcare.
           </h2>
         </div>
 

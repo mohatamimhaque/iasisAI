@@ -55,13 +55,18 @@ export function DoctorSidebar({ userEmail, logoUrl }: { userEmail: string; logoU
       <div className="border-t border-sidebar-border p-3">
         <Link
           href="/doctor/settings"
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+          className="notranslate flex items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+          translate="no"
         >
           <Settings className="size-4" />
           Settings
         </Link>
         <div className="mt-2 flex items-center justify-between gap-2 rounded-md px-3 py-2">
-          <span className="truncate text-xs text-muted-foreground" title={userEmail}>
+          <span
+            className="notranslate truncate text-xs text-muted-foreground"
+            translate="no"
+            title={userEmail}
+          >
             {userEmail}
           </span>
           <SignOutButton />

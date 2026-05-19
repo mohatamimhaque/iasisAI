@@ -4,6 +4,7 @@ import { Inter, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/sonner"
 import { getBrandingConfig } from "@/lib/site-config"
+import GoogleTranslate from "@/components/GoogleTranslate"
 import "./globals.css"
 
 const inter = Inter({
@@ -22,19 +23,19 @@ const instrumentSerif = Instrument_Serif({
 
 const baseMetadata: Metadata = {
   title: {
-    default: "Iasis AI — National Healthcare Infrastructure for Bangladesh",
+    default: "Iasis AI — Global Healthcare Infrastructure for South Asia",
     template: "%s · Iasis AI",
   },
   description:
-    "Iasis AI is a national, AI-powered healthcare platform connecting every citizen, doctor, clinic, and hospital across Bangladesh. Symptom triage, telemedicine, lab reports, and prescriptions — in one place.",
+    "Iasis AI is a global, AI-powered healthcare platform connecting every citizen, doctor, clinic, and hospital across South Asia. Symptom triage, telemedicine, lab reports, and prescriptions — in one place.",
   generator: "v0.app",
   applicationName: "Iasis AI",
   keywords: [
     "Iasis AI",
-    "Bangladesh healthcare",
+    "South Asia healthcare",
     "AI triage",
-    "telemedicine Bangladesh",
-    "digital health Bangladesh",
+    "telemedicine South Asia",
+    "digital health South Asia",
     "doctor appointment",
     "lab reports",
   ],
@@ -65,6 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} bg-background`} suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <GoogleTranslate />
         {children}
         <Toaster richColors closeButton position="top-center" />
         {process.env.NODE_ENV === "production" && <Analytics />}

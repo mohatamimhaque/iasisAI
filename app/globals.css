@@ -164,6 +164,18 @@
   }
 }
 
+body > table:nth-child(1), .VIpgJd-ZVi9od-ORHb  > table:nth-child(1),.skiptranslate,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf.VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc{
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 @keyframes lds-roller {
   0% {
     transform: rotate(0deg);

@@ -42,7 +42,7 @@ export async function SiteFooter() {
           <div className="md:col-span-5" suppressHydrationWarning>
             <IasisLogo logoUrl={logoUrl} />
             <p className="mt-4 max-w-sm text-pretty text-sm leading-relaxed text-muted-foreground">
-              National healthcare infrastructure for South Asia. Iasis AI connects every citizen, doctor, clinic, and
+              Global healthcare infrastructure for South Asia. Iasis AI connects every citizen, doctor, clinic, and
               hospital with AI-assisted triage, telemedicine, and unified medical records.
             </p>
             <p className="mt-6 text-xs text-muted-foreground">

@@ -123,3 +123,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+body > table:nth-child(1){
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}

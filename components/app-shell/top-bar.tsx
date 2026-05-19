@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Bell, Menu, type LucideIcon } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Bell, Globe, Menu, type LucideIcon } from "lucide-react"
 import { IasisLogo } from "@/components/brand/iasis-logo"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -50,6 +51,60 @@ export function TopBar({
   const showNotifications = Boolean(notificationsHref)
   const badgeCount = typeof notificationCount === "number" ? notificationCount : 0
   const badgeLabel = badgeCount > 99 ? "99+" : badgeCount.toString()
+  const [lang, setLang] = useState("EN")
+
+  const getLangFromCookie = () => {
+    const match = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/)
+    if (!match) return null
+    const value = decodeURIComponent(match[1])
+    if (value.endsWith("/bn")) return "BN"
+    if (value.endsWith("/en")) return "EN"
+    return null
+  }
+
+  useEffect(() => {
+    const syncLang = () => {
+      const translateSelect = document.querySelector<HTMLSelectElement>(".goog-te-combo")
+      const cookieLang = getLangFromCookie()
+      if (translateSelect) {
+        const value = translateSelect.value === "bn" ? "BN" : "EN"
+        setLang(value)
+        return true
+      }
+      if (cookieLang) {
+        setLang(cookieLang)
+        return false
+      }
+      return false
+    }
+
+    if (syncLang()) return
+
+    const intervalId = window.setInterval(() => {
+      if (syncLang()) {
+        window.clearInterval(intervalId)
+      }
+    }, 500)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
+
+  const toggleTranslate = () => {
+    const translateSelect = document.querySelector<HTMLSelectElement>(".goog-te-combo")
+    if (translateSelect) {
+      const next = translateSelect.value === "bn" ? "en" : "bn"
+      translateSelect.value = next
+      translateSelect.dispatchEvent(new Event("change"))
+      setLang(next === "bn" ? "BN" : "EN")
+      return
+    }
+
+    const translateElement = document.getElementById("google_translate_element")
+    if (!translateElement) return
+    const isHidden = translateElement.style.display === "none" || translateElement.style.display === ""
+    translateElement.style.display = isHidden ? "block" : "none"
+    translateElement.setAttribute("aria-hidden", isHidden ? "false" : "true")
+  }
 
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-border bg-background/85 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/70 sm:px-6">
@@ -113,12 +168,24 @@ export function TopBar({
         </Link>
       </div>
       <div className="hidden lg:block">
-        <p className="font-serif text-xl tracking-tight text-foreground">
+        <p className="notranslate font-serif text-xl tracking-tight text-foreground" translate="no">
           {fullName ? `Hello, ${fullName.split(" ")[0]}.` : "Hello."}
         </p>
       </div>
 
       <div className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          aria-label="Toggle language"
+          onClick={toggleTranslate}
+          className="gap-2"
+        >
+          <Globe className="size-4" />
+          <span className="notranslate text-xs font-semibold tracking-wide" translate="no">
+            {lang}
+          </span>
+        </Button>
         {showNotifications ? (
           <Button variant="ghost" size="icon" aria-label="Notifications" asChild>
             <Link href={notificationsHref ?? "/app/notifications"} className="relative">
@@ -140,7 +207,7 @@ export function TopBar({
             >
               <Avatar className="size-8">
                 {avatarUrl ? <AvatarImage src={avatarUrl} alt={fullName ?? "User avatar"} /> : null}
-                <AvatarFallback className="bg-primary/10 text-xs text-primary">
+                <AvatarFallback className="notranslate bg-primary/10 text-xs text-primary" translate="no">
                   {initials(fullName, email)}
                 </AvatarFallback>
               </Avatar>
@@ -148,12 +215,18 @@ export function TopBar({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel className="flex flex-col">
-              <span className="text-sm font-medium text-foreground">{fullName ?? "Iasis member"}</span>
-              <span className="truncate text-xs text-muted-foreground">{email}</span>
+              <span className="notranslate text-sm font-medium text-foreground" translate="no">
+                {fullName ?? "Iasis member"}
+              </span>
+              <span className="notranslate truncate text-xs text-muted-foreground" translate="no">
+                {email}
+              </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/app/settings">Settings</Link>
+              <Link href="/app/settings" className="notranslate" translate="no">
+                Settings
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/onboarding">Edit health profile</Link>

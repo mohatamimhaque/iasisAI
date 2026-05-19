@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { IasisLogo } from "@/components/brand/iasis-logo"
+import { LanguageToggle } from "@/components/language-toggle"
 import { getBrandingConfig } from "@/lib/site-config"
 
 const NAV = [
@@ -35,6 +36,7 @@ export async function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2" suppressHydrationWarning>
+          <LanguageToggle />
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link href="/auth/login">Sign in</Link>
           </Button>
