@@ -5,6 +5,12 @@ Iasis AI is a full-stack healthcare platform built with Next.js, Supabase, and C
 ## Docs
 
 - [iasis_ai_prd.md](iasis_ai_prd.md) — Product Requirements Document
+- [docs/master.md](docs/master.md) — Master documentation
+- [docs/developer.md](docs/developer.md) — Developer guide
+- [docs/user-admin.md](docs/user-admin.md) — Admin guide
+- [docs/user-clinic.md](docs/user-clinic.md) — Clinic/lab guide
+- [docs/user-doctor.md](docs/user-doctor.md) — Doctor guide
+- [docs/user-patient.md](docs/user-patient.md) — Patient guide
 
 ## Tech stack
 
