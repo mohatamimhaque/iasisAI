@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { createReminder } from "@/app/app/reminders/actions"
+import { createReminder } from "@/app/app/(main)/reminders/actions"
 
 type FamilyMember = { id: string; full_name: string }
 

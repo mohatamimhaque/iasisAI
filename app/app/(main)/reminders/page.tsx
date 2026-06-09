@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { BellRing, Pause, Play, Trash2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { AddReminderDialog } from "@/components/reminders/add-reminder-dialog"
-import { deleteReminder, toggleReminder } from "@/app/app/reminders/actions"
+import { deleteReminder, toggleReminder } from "@/app/app/(main)/reminders/actions"
 
 export const metadata = {
   title: "Medicine reminders",

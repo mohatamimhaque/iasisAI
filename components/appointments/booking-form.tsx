@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { bookAppointment } from "@/app/app/appointments/actions"
+import { bookAppointment } from "@/app/app/(main)/appointments/actions"
 
 type Doctor = {
   id: string

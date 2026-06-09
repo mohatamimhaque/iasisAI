@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { MOOD_OPTIONS } from "@/lib/mental-health"
-import { recordMood } from "@/app/app/mental-health/actions"
+import { recordMood } from "@/app/app/(main)/mental-health/actions"
 
 export function MoodCheckin() {
   const [selected, setSelected] = useState<number | null>(null)

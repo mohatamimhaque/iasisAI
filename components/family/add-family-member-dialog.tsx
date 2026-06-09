@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { createFamilyMember, type FamilyFormState } from "@/app/app/family/actions"
+import { createFamilyMember, type FamilyFormState } from "@/app/app/(main)/family/actions"
 
 const RELATIONSHIPS = ["Spouse", "Parent", "Child", "Sibling", "Grandparent", "Grandchild", "Other"]
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]

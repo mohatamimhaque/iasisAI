@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { updateHealthRecord } from "@/app/app/settings/actions"
+import { updateHealthRecord } from "@/app/app/(main)/settings/actions"
 
 interface Props {
   record: {

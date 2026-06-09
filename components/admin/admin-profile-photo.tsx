@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { updateAvatarUrl } from "@/app/app/settings/actions"
+import { updateAvatarUrl } from "@/app/app/(main)/settings/actions"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"

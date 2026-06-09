@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { AssessmentForm } from "@/components/mental-health/assessment-form"
 import { GAD7_QUESTIONS } from "@/lib/mental-health"
-import { submitGad7 } from "@/app/app/mental-health/actions"
+import { submitGad7 } from "@/app/app/(main)/mental-health/actions"
 
 export const metadata = {
   title: "GAD-7 — anxiety screen",

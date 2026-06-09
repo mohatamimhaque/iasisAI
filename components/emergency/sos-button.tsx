@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from "react"
+import { usePathname } from "next/navigation"
 import { AlertTriangle, Phone, X } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -12,11 +13,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { triggerEmergencyAlert } from "@/app/app/emergency/actions"
+import { triggerEmergencyAlert } from "@/app/app/(main)/emergency/actions"
 
 const COUNTDOWN_SECONDS = 30
 
 export function SosButton() {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [countdown, setCountdown] = useState(COUNTDOWN_SECONDS)
   const [pending, startTransition] = useTransition()
@@ -67,6 +69,8 @@ export function SosButton() {
       }
     })
   }
+
+  if (pathname.startsWith("/app/chat")) return null
 
   return (
     <>

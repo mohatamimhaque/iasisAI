@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { LifeBuoy } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
-import { updateTicketStatus } from "@/app/app/support/actions"
+import { updateTicketStatus } from "@/app/app/(main)/support/actions"
 
 export const metadata = {
   title: "Support tickets",

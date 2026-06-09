@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { addEmergencyContact, removeEmergencyContact } from "@/app/app/emergency/actions"
+import { addEmergencyContact, removeEmergencyContact } from "@/app/app/(main)/emergency/actions"
 
 export const metadata = {
   title: "Emergency",
