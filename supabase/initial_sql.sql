@@ -1422,3 +1422,50 @@ ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS state_province text,
   ADD COLUMN IF NOT EXISTS city           text,
   ADD COLUMN IF NOT EXISTS address_line   text;
+
+
+
+-- New tables for RISA AI chat
+CREATE TABLE risa_conversations (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id          uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  backend_session_id text,
+  title            text NOT NULL DEFAULT 'New conversation',
+  is_pinned        boolean NOT NULL DEFAULT false,
+  is_archived      boolean NOT NULL DEFAULT false,
+  share_token      text UNIQUE,
+  share_enabled    boolean NOT NULL DEFAULT false,
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  updated_at       timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE risa_messages (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id  uuid REFERENCES risa_conversations ON DELETE CASCADE NOT NULL,
+  role             text NOT NULL CHECK (role IN ('user', 'assistant')),
+  content          text NOT NULL,
+  feedback         text CHECK (feedback IN ('up', 'down')),
+  created_at       timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE risa_memory (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id    uuid REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  content    text NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- Row-level security
+ALTER TABLE risa_conversations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE risa_messages      ENABLE ROW LEVEL SECURITY;
+ALTER TABLE risa_memory        ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "own_convs"  ON risa_conversations FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "own_msgs"   ON risa_messages FOR ALL USING (
+  conversation_id IN (SELECT id FROM risa_conversations WHERE user_id = auth.uid())
+);
+CREATE POLICY "shared_convs" ON risa_conversations FOR SELECT USING (share_enabled = true);
+CREATE POLICY "shared_msgs"  ON risa_messages FOR SELECT USING (
+  conversation_id IN (SELECT id FROM risa_conversations WHERE share_enabled = true)
+);
+CREATE POLICY "own_memory" ON risa_memory FOR ALL USING (auth.uid() = user_id);
