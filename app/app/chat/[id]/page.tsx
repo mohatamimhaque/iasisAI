@@ -54,7 +54,6 @@ export default async function ChatConversationPage({
 
   return (
     <>
-      <style>{`body { top: 40px !important; }`}</style>
       <RisaConversation
       conversation={conv}
       messages={

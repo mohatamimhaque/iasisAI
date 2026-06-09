@@ -172,9 +172,6 @@ body > table:nth-child(1), .VIpgJd-ZVi9od-ORHb  > table:nth-child(1),.skiptransl
   display: none !important;
 }
 
-body {
-  top: 40px !important;
-}
 
 @keyframes lds-roller {
   0% {
