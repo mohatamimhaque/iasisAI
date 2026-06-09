@@ -53,7 +53,9 @@ export default async function ChatConversationPage({
   if (!conv) notFound()
 
   return (
-    <RisaConversation
+    <>
+      <style>{`body { top: 40px !important; }`}</style>
+      <RisaConversation
       conversation={conv}
       messages={
         (msgs ?? []) as Array<{
@@ -69,5 +71,6 @@ export default async function ChatConversationPage({
       userId={user.id}
       initialQ={q}
     />
+    </>
   )
 }

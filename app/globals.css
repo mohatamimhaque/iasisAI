@@ -173,7 +173,7 @@ body > table:nth-child(1), .VIpgJd-ZVi9od-ORHb  > table:nth-child(1),.skiptransl
 }
 
 body {
-  top: 0 !important;
+  top: 40px !important;
 }
 
 @keyframes lds-roller {

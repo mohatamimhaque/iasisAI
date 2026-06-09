@@ -132,6 +132,3 @@ body > table:nth-child(1){
     display: none !important;
 }
 
-body {
-    top: 0 !important;
-}
