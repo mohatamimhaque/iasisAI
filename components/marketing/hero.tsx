@@ -18,7 +18,7 @@ export function Hero() {
 
           <h1 className="mt-6 text-balance font-serif text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Healthcare that finally{" "}
-            <span className="italic text-primary">reaches every South Asia</span>.
+            <span className="italic text-primary">reaches every South Asian</span>.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
