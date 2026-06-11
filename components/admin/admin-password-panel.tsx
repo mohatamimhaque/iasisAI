@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { getRedirectUrl } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -61,7 +62,7 @@ export function AdminPasswordPanel({ email }: { email: string }) {
 
     try {
       const supabase = createClient()
-      const redirectTo = `${window.location.origin}/auth/callback?next=/auth/update-password`
+      const redirectTo = getRedirectUrl("/auth/callback?next=/auth/update-password")
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
       if (resetError) throw resetError
 
