@@ -39,7 +39,7 @@ export function Hero() {
             </Button>
           </div>
 
-          <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-8" suppressHydrationWarning>
+          {/* <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-8" suppressHydrationWarning>
             <div suppressHydrationWarning>
               <dt className="text-xs uppercase tracking-wider text-muted-foreground">Districts</dt>
               <dd className="mt-1 font-serif text-3xl text-foreground">64</dd>
@@ -52,7 +52,7 @@ export function Hero() {
               <dt className="text-xs uppercase tracking-wider text-muted-foreground">Avg. triage</dt>
               <dd className="mt-1 font-serif text-3xl text-foreground">90s</dd>
             </div>
-          </dl>
+          </dl> */}
         </div>
 
         <div className="lg:col-span-5" suppressHydrationWarning>
