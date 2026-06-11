@@ -40,7 +40,7 @@ export function ValuePillars() {
         <div className="max-w-2xl" suppressHydrationWarning>
           <p className="text-sm uppercase tracking-wider text-primary">The platform</p>
           <h2 className="mt-3 text-balance font-serif text-4xl leading-tight tracking-tight text-foreground sm:text-5xl">
-            One layer underneath every healthcare interaction in South Asia.
+            One layer underneath every healthcare interaction in Bangladesh.
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground">
             Iasis AI replaces fragmented paperwork, lost reports, and guesswork with a single, secure, AI-assisted
