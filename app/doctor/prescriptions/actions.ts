@@ -1,7 +1,6 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
 
@@ -60,7 +59,6 @@ export async function createPrescription(input: {
   if (itemsErr) throw new Error(itemsErr.message)
 
   revalidatePath("/doctor/prescriptions")
-  redirect("/doctor/prescriptions")
 }
 
 export type PatientSearchResult = {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { Plus, Trash2, FileSignature } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,7 @@ export function PrescriptionComposeForm({
   defaultPatientId?: string
   defaultAppointmentId?: string
 }) {
+  const router = useRouter()
   const [patientId, setPatientId] = useState(defaultPatientId ?? "")
   const [diagnosis, setDiagnosis] = useState("")
   const [notes, setNotes] = useState("")
@@ -39,6 +41,10 @@ export function PrescriptionComposeForm({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!patientId) {
+      toast.error("Please select a patient first.")
+      return
+    }
     startTransition(async () => {
       try {
         await createPrescription({
@@ -48,6 +54,8 @@ export function PrescriptionComposeForm({
           notes,
           items,
         })
+        toast.success("Prescription signed and issued successfully.")
+        router.push("/doctor/prescriptions")
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "Failed to sign prescription")
       }

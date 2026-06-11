@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { headers } from "next/headers"
 import { notFound, redirect } from "next/navigation"
 import { ArrowLeft, Pill, QrCode, ShieldCheck } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
+import { getRedirectUrl } from "@/lib/utils"
 import { PrescriptionQR } from "@/components/prescriptions/prescription-qr"
 
 export const metadata = {
@@ -25,10 +25,7 @@ export default async function PrescriptionDetailPage({ params }: { params: Promi
     .single()
   if (!rx) notFound()
 
-  const h = await headers()
-  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000"
-  const proto = h.get("x-forwarded-proto") ?? "https"
-  const verifyUrl = `${proto}://${host}/verify/rx/${rx.id}?t=${rx.verification_token}`
+  const verifyUrl = getRedirectUrl(`/verify/rx/${rx.id}?t=${rx.verification_token}`)
 
   const { data: items } = await supabase
     .from("prescription_items")
