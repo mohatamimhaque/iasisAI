@@ -8,15 +8,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { createPrescription, type PrescriptionItemInput } from "@/app/doctor/prescriptions/actions"
-
-type PatientOption = { id: string; full_name: string | null }
+import { PatientSearch } from "@/components/doctor/patient-search"
 
 export function PrescriptionComposeForm({
-  patients,
   defaultPatientId,
   defaultAppointmentId,
 }: {
-  patients: PatientOption[]
   defaultPatientId?: string
   defaultAppointmentId?: string
 }) {
@@ -64,30 +61,11 @@ export function PrescriptionComposeForm({
 
         <div className="space-y-2">
           <Label htmlFor="patient">Patient</Label>
-          {patients.length > 0 ? (
-            <select
-              id="patient"
-              required
-              value={patientId}
-              onChange={(e) => setPatientId(e.target.value)}
-              className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <option value="">Select a patient…</option>
-              {patients.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.full_name ?? "Unnamed patient"} ({p.id.slice(0, 8)})
-                </option>
-              ))}
-            </select>
-          ) : (
-            <Input
-              id="patient"
-              placeholder="Patient ID (UUID)"
-              required
-              value={patientId}
-              onChange={(e) => setPatientId(e.target.value)}
-            />
-          )}
+          <PatientSearch
+            patientId={patientId}
+            onChange={setPatientId}
+            defaultPatientId={defaultPatientId}
+          />
         </div>
 
         <div className="space-y-2">

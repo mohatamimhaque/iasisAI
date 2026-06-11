@@ -53,8 +53,10 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.redirect(`${origin}${next}`)
+    } else {
+      return NextResponse.redirect(`${origin}/auth/error?error=${encodeURIComponent(error.message)}`)
     }
   }
 
-  return NextResponse.redirect(`${origin}/auth/error`)
+  return NextResponse.redirect(`${origin}/auth/error?error=No+authentication+code+provided`)
 }

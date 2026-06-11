@@ -21,22 +21,6 @@ export default async function NewPrescriptionPage({
 
   const params = await searchParams
 
-  // Pull doctor's patient list from past appointments.
-  const { data: appts } = await supabase
-    .from("appointments")
-    .select("patient_id")
-    .eq("doctor_id", user.id)
-
-  const uniquePatientIds = Array.from(new Set((appts ?? []).map((a) => a.patient_id))).filter(Boolean)
-  let patients: { id: string; full_name: string | null }[] = []
-  if (uniquePatientIds.length > 0) {
-    const { data: profileRows } = await supabase
-      .from("profiles")
-      .select("id, full_name")
-      .in("id", uniquePatientIds)
-    patients = profileRows ?? []
-  }
-
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-10">
       <Link
@@ -58,7 +42,6 @@ export default async function NewPrescriptionPage({
 
       <div className="mt-8">
         <PrescriptionComposeForm
-          patients={patients}
           defaultPatientId={params.patient}
           defaultAppointmentId={params.appointment}
         />

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 
 export type PrescriptionItemInput = {
   medicine_name: string
@@ -60,4 +61,117 @@ export async function createPrescription(input: {
 
   revalidatePath("/doctor/prescriptions")
   redirect("/doctor/prescriptions")
+}
+
+export type PatientSearchResult = {
+  id: string
+  full_name: string | null
+  avatar_url: string | null
+  email: string | null
+}
+
+/**
+ * Searches for patients by name or email.
+ * Suggests at most 8 patients with full_name, email, and avatar_url.
+ */
+export async function searchPatients(query: string): Promise<PatientSearchResult[]> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  // Verify user is doctor or admin
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single()
+
+  if (!profile || (profile.role !== "doctor" && profile.role !== "admin")) {
+    throw new Error("Unauthorized: Only doctors can search for patients.")
+  }
+
+  const cleanQuery = query.trim()
+  if (cleanQuery.length < 2) return []
+
+  const adminClient = createAdminClient()
+  
+  // 1. Search profiles where role = 'patient' by full_name
+  // If we have adminClient, we fetch all profiles to map their email.
+  // (In a small database/demo, in-memory search is robust and fast).
+  const db = adminClient ?? supabase
+  const { data: profiles, error: profilesError } = await db
+    .from("profiles")
+    .select("id, full_name, avatar_url")
+    .eq("role", "patient")
+    .is("deleted_at", null)
+
+  if (profilesError) throw new Error(profilesError.message)
+
+  // 2. Fetch email addresses using admin client
+  let emailMap = new Map<string, string>()
+  if (adminClient) {
+    const perPage = 1000
+    let page = 1
+    while (page <= 10) {
+      const { data, error } = await adminClient.auth.admin.listUsers({ page, perPage })
+      if (error) break
+      const users = data?.users ?? []
+      for (const u of users) {
+        if (u.id && u.email) emailMap.set(u.id, u.email)
+      }
+      if (users.length < perPage) break
+      page += 1
+    }
+  }
+
+  // 3. Search and filter
+  const term = cleanQuery.toLowerCase()
+  const list = (profiles ?? []).map(p => ({
+    id: p.id,
+    full_name: p.full_name,
+    avatar_url: p.avatar_url,
+    email: emailMap.get(p.id) || null
+  }))
+
+  const matches = list.filter(p => {
+    const nameMatch = p.full_name?.toLowerCase().includes(term)
+    const emailMatch = p.email?.toLowerCase().includes(term)
+    return nameMatch || emailMatch
+  })
+
+  return matches.slice(0, 8)
+}
+
+/**
+ * Retrieves a single patient's profile details by ID (including email).
+ */
+export async function getPatientById(id: string): Promise<PatientSearchResult | null> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error("Unauthorized")
+
+  const adminClient = createAdminClient()
+  const db = adminClient ?? supabase
+
+  const { data: profile, error } = await db
+    .from("profiles")
+    .select("id, full_name, avatar_url")
+    .eq("id", id)
+    .eq("role", "patient")
+    .single()
+
+  if (error || !profile) return null
+
+  let email: string | null = null
+  if (adminClient) {
+    const { data: authUser } = await adminClient.auth.admin.getUserById(id)
+    email = authUser?.user?.email ?? null
+  }
+
+  return {
+    id: profile.id,
+    full_name: profile.full_name,
+    avatar_url: profile.avatar_url,
+    email
+  }
 }
