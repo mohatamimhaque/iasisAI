@@ -153,6 +153,7 @@
     @apply bg-background text-foreground;
     font-family: "Google Sans", "Montserrat", "Open Sans", "Roboto", "Lato", "Oswald", sans-serif !important;
     font-feature-settings: "ss01", "cv11";
+    top: 0px !important;
   }
   
   .font-serif{
