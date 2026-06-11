@@ -14,7 +14,7 @@ interface PatientSearchProps {
   onChange: (id: string) => void
   defaultPatientId?: string
 }
-
+// yhyy
 export function PatientSearch({ patientId, onChange, defaultPatientId }: PatientSearchProps) {
   const [query, setQuery] = React.useState("")
   const [suggestions, setSuggestions] = React.useState<PatientSearchResult[]>([])
