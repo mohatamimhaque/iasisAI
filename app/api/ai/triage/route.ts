@@ -229,14 +229,13 @@ export async function POST(req: Request) {
     : null
   console.log(`[Triage API] Profile context: age=${age}, gender=${profile?.gender ?? "unknown"}`)
 
-  let result: TriageResult | null = null
-
-  if (parsed.data.useMock) {
+  // Helper to generate structured mock/demo triage response
+  const generateDemo = (symptoms: string): TriageResult => {
     console.log("[Triage API] Generating structured mock triage response...")
-    const lowerSymptoms = parsed.data.symptoms.toLowerCase()
+    const lowerSymptoms = symptoms.toLowerCase()
     
     if (lowerSymptoms.includes("chest pain") || lowerSymptoms.includes("heart attack") || lowerSymptoms.includes("breath")) {
-      result = {
+      return {
         possible_conditions: [
           { name: "Angina Pectoris", probability: 0.7, explanation: "Reported chest pain and breathing issues indicate possible reduced blood flow to the heart." },
           { name: "Myocardial Infarction (Heart Attack)", probability: 0.3, explanation: "Acute chest pain warrants immediate evaluation for acute cardiac events." }
@@ -249,7 +248,7 @@ export async function POST(req: Request) {
         disclaimer: "This is a simulated triage report for demonstration. Seek immediate emergency professional care."
       }
     } else if (lowerSymptoms.includes("fever") || lowerSymptoms.includes("cough") || lowerSymptoms.includes("temp")) {
-      result = {
+      return {
         possible_conditions: [
           { name: "Viral Fever (Common Cold / Influenza)", probability: 0.65, explanation: "Fever and dry cough are typical presentations of upper respiratory tract viral infections." },
           { name: "Dengue Fever", probability: 0.25, explanation: "Fever in Bangladesh, especially with body aches, requires monitoring for dengue." }
@@ -262,7 +261,7 @@ export async function POST(req: Request) {
         disclaimer: "This is a simulated triage report for demonstration. Consult a licensed medical professional."
       }
     } else {
-      result = {
+      return {
         possible_conditions: [
           { name: "Mild Viral Gastroenteritis", probability: 0.75, explanation: "General symptoms of discomfort and mild nausea point to seasonal stomach virus." }
         ],
@@ -274,6 +273,13 @@ export async function POST(req: Request) {
         disclaimer: "This is a simulated triage report for demonstration. Consult a doctor if symptoms worsen."
       }
     }
+  }
+
+  let result: TriageResult | null = null
+
+  if (parsed.data.useMock) {
+    console.log("[Triage API] Explicitly requested demo data.")
+    result = generateDemo(parsed.data.symptoms)
   } else {
     // 3. Retrieve dynamic MedGemma endpoint from Firebase Realtime Database
     let medgemmaUrl = ""
@@ -288,90 +294,115 @@ export async function POST(req: Request) {
     }
 
     if (!medgemmaUrl) {
-      console.error("[Triage API] MedGemma model is currently offline or unreachable.")
-      return new Response(JSON.stringify({ error: "MedGemma model is currently offline or unreachable." }), { status: 503 })
-    }
+      console.error("[Triage API] MedGemma model URL not resolved. Falling back to demo data.")
+      result = generateDemo(parsed.data.symptoms)
+    } else {
+      // 4. Construct prompt content matching the Python handler expectation
+      const textPrompt = `${TRIAGE_SYSTEM_PROMPT}\n\n${buildTriagePrompt({
+        symptoms: parsed.data.symptoms,
+        duration: parsed.data.duration,
+        severity: parsed.data.severity,
+        age,
+        gender: profile?.gender ?? null,
+      })}`
 
-    // 4. Construct prompt content matching the Python handler expectation
-    const textPrompt = `${TRIAGE_SYSTEM_PROMPT}\n\n${buildTriagePrompt({
-      symptoms: parsed.data.symptoms,
-      duration: parsed.data.duration,
-      severity: parsed.data.severity,
-      age,
-      gender: profile?.gender ?? null,
-    })}`
+      const hasImage = base64Images.length > 0
+      let formattedTextPrompt = textPrompt
+      if (hasImage) {
+        // Prepend "<image>" placeholders for the Gemma 3 processor
+        const imagePlaceholders = "<image>".repeat(base64Images.length)
+        formattedTextPrompt = `${imagePlaceholders}\n${textPrompt}`
+      }
 
-    const hasImage = base64Images.length > 0
-    const userContent: any[] = [{ type: "text", text: textPrompt }]
-    if (hasImage) {
-      base64Images.forEach((img, index) => {
-        userContent.push({
-          type: "image_url",
-          image_url: { url: img },
+      const userContent: any[] = [{ type: "text", text: formattedTextPrompt }]
+      if (hasImage) {
+        base64Images.forEach((img, index) => {
+          userContent.push({
+            type: "image_url",
+            image_url: { url: img },
+          })
         })
-      })
-    }
-
-    try {
-      // Call Python FastAPI /v1/chat/completions endpoint on Kaggle directly
-      const medgemmaEndpoint = `${medgemmaUrl}/v1/chat/completions`
-      console.log(`[Triage API] Fetching MedGemma chat completions directly from: ${medgemmaEndpoint}`)
-      
-      const response = await fetch(medgemmaEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          has_image: hasImage,
-          messages: [
-            {
-              role: "user",
-              content: userContent,
-            },
-          ],
-        }),
-      })
-
-      console.log(`[Triage API] Proxy response status: ${response.status}`)
-      if (!response.ok) {
-        throw new Error(`Model request failed: ${response.statusText}`)
       }
 
-      const payload = await response.json()
-      const rawContent = payload?.choices?.[0]?.message?.content
-      console.log("[Triage API] MedGemma output raw content:", rawContent)
-      
-      // Parse JSON block out of MedGemma output
-      if (rawContent) {
-        let cleanContent = rawContent.trim()
-        // Strip ```json ... ``` blocks if present
-        if (cleanContent.startsWith("```")) {
-          const lines = cleanContent.split("\n")
-          if (lines[0].startsWith("```")) {
-            lines.shift()
-          }
-          if (lines[lines.length - 1].startsWith("```")) {
-            lines.pop()
-          }
-          cleanContent = lines.join("\n").trim()
+      try {
+        // Call Python FastAPI /v1/chat/completions endpoint on Kaggle directly
+        const medgemmaEndpoint = `${medgemmaUrl}/v1/chat/completions`
+        console.log(`[Triage API] Fetching MedGemma chat completions directly from: ${medgemmaEndpoint}`)
+        
+        const response = await fetch(medgemmaEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            has_image: hasImage,
+            messages: [
+              {
+                role: "user",
+                content: userContent,
+              },
+            ],
+          }),
+        })
+
+        console.log(`[Triage API] Proxy response status: ${response.status}`)
+        if (!response.ok) {
+          const errBody = await response.text()
+          console.error(`[Triage API] MedGemma API error detail:`, errBody)
+          throw new Error(`Model request failed: ${errBody || response.statusText}`)
         }
 
-        const parsedJSON = JSON.parse(cleanContent)
-        if (parsedJSON.assessment && !parsedJSON.possible_conditions) {
-          result = parseAssessmentToTriageResult(parsedJSON.assessment, parsed.data.symptoms)
-        } else {
-          result = parsedJSON
+        const payload = await response.json()
+        const rawContent = payload?.choices?.[0]?.message?.content
+        console.log("[Triage API] MedGemma output raw content:", rawContent)
+        
+        // Parse JSON block out of MedGemma output
+        if (rawContent) {
+          let cleanContent = rawContent.trim()
+          // Strip ```json ... ``` blocks if present
+          if (cleanContent.startsWith("```")) {
+            const lines = cleanContent.split("\n")
+            if (lines[0].startsWith("```")) {
+              lines.shift()
+            }
+            if (lines[lines.length - 1].startsWith("```")) {
+              lines.pop()
+            }
+            cleanContent = lines.join("\n").trim()
+          }
+
+          try {
+            const parsedJSON = JSON.parse(cleanContent)
+            if (parsedJSON.assessment) {
+              const inferred = parseAssessmentToTriageResult(parsedJSON.assessment, parsed.data.symptoms)
+              result = {
+                ...inferred,
+                ...parsedJSON,
+                possible_conditions: parsedJSON.possible_conditions || inferred.possible_conditions,
+                red_flags: parsedJSON.red_flags || inferred.red_flags,
+                recommended_tests: parsedJSON.recommended_tests || inferred.recommended_tests,
+                recommended_specialist: parsedJSON.recommended_specialist || inferred.recommended_specialist,
+                recommended_action: parsedJSON.recommended_action || inferred.recommended_action,
+                urgency: parsedJSON.urgency || inferred.urgency,
+                disclaimer: parsedJSON.disclaimer || inferred.disclaimer,
+              }
+            } else {
+              result = parsedJSON
+            }
+            console.log("[Triage API] Parsed Structured Result Urgency:", result?.urgency)
+          } catch (jsonErr) {
+            console.warn("[Triage API] Failed to parse model output as JSON, falling back to assessment text parser:", jsonErr)
+            result = parseAssessmentToTriageResult(rawContent, parsed.data.symptoms)
+          }
         }
-        console.log("[Triage API] Parsed Structured Result Urgency:", result?.urgency)
+      } catch (err) {
+        console.error("[Triage API] Error communicating with MedGemma API. Falling back to demo data.", err)
+        result = generateDemo(parsed.data.symptoms)
       }
-    } catch (err) {
-      console.error("[Triage API] Error communicating with MedGemma API:", err)
-      return new Response(JSON.stringify({ error: "AI reasoning failed" }), { status: 502 })
     }
   }
 
   if (!result) {
-    console.error("[Triage API] Failed to obtain result from MedGemma.")
-    return new Response(JSON.stringify({ error: "No output generated from MedGemma" }), { status: 502 })
+    console.warn("[Triage API] Failed to obtain result from MedGemma. Falling back to demo data.")
+    result = generateDemo(parsed.data.symptoms)
   }
 
   // 5. Persist the session

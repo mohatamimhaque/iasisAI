@@ -26,6 +26,20 @@ export async function POST(req: Request) {
     // 2. Parse the body of the request
     const body = await req.json()
 
+    // Align messages content for Gemma3 multimodal input
+    if (body && Array.isArray(body.messages)) {
+      for (const msg of body.messages) {
+        if (msg.role === "user" && Array.isArray(msg.content)) {
+          let textItem = msg.content.find((item: any) => item.type === "text")
+          const imageCount = msg.content.filter((item: any) => item.type === "image_url").length
+          if (imageCount > 0 && textItem) {
+            const imagePlaceholders = "<image>".repeat(imageCount)
+            textItem.text = `${imagePlaceholders}\n${textItem.text}`
+          }
+        }
+      }
+    }
+
     // 3. Forward the request to the Kaggle-hosted FastAPI endpoint
     const response = await fetch(`${medgemmaUrl}/v1/chat/completions`, {
       method: "POST",
