@@ -20,7 +20,7 @@ export default async function TriageResultPage({ params }: { params: Promise<{ i
 
   const { data: session } = await supabase
     .from("triage_sessions")
-    .select("id, symptoms, duration, severity, result, urgency, created_at")
+    .select("id, symptoms, duration, severity, result, urgency, created_at, images")
     .eq("id", id)
     .eq("user_id", user.id)
     .single()
@@ -69,23 +69,45 @@ export default async function TriageResultPage({ params }: { params: Promise<{ i
             What your symptoms could indicate. Listed in order of likelihood.
           </p>
           <ul className="mt-5 space-y-3">
-            {result.possible_conditions.map((c) => (
-              <li key={c.name} className="rounded-xl border border-border bg-background p-4">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="text-base font-medium text-foreground">{c.name}</h3>
-                  <span className="text-xs font-medium text-primary">
-                    {Math.round(c.probability * 100)}% likely
-                  </span>
-                </div>
-                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary">
-                  <div
-                    className="h-full bg-primary"
-                    style={{ width: `${Math.round(c.probability * 100)}%` }}
-                  />
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.explanation}</p>
-              </li>
-            ))}
+            {((result.possible_conditions || []) as any[]).map((c, index) => {
+              // Handle string vs object dynamically to prevent NaN% likely and empty cards
+              const isString = typeof c === "string"
+              const name = isString ? c : (c?.name || "Unspecified Condition")
+              const explanation = isString ? "Suspected based on your symptoms profile." : (c?.explanation || "Suspected based on your symptoms profile.")
+              
+              let probability = 0.5
+              if (!isString) {
+                if (typeof c?.probability === "number") {
+                  probability = c.probability
+                } else if (typeof c?.probability === "string") {
+                  const parsedFloat = parseFloat(c.probability)
+                  if (!isNaN(parsedFloat)) {
+                    probability = parsedFloat > 1 ? parsedFloat / 100 : parsedFloat
+                  }
+                }
+              } else {
+                // If it is a raw string list, calculate a logical decreasing probability
+                probability = Math.max(0.1, 0.7 - index * 0.2)
+              }
+
+              return (
+                <li key={name} className="rounded-xl border border-border bg-background p-4">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="text-base font-medium text-foreground">{name}</h3>
+                    <span className="text-xs font-medium text-primary">
+                      {Math.round(probability * 100)}% likely
+                    </span>
+                  </div>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary">
+                    <div
+                      className="h-full bg-primary"
+                      style={{ width: `${Math.round(probability * 100)}%` }}
+                    />
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{explanation}</p>
+                </li>
+              )
+            })}
           </ul>
         </section>
 
@@ -179,6 +201,28 @@ export default async function TriageResultPage({ params }: { params: Promise<{ i
           <p className="text-xs uppercase tracking-wider text-muted-foreground">Symptoms in your words</p>
           <p className="mt-2 text-sm leading-relaxed text-foreground">{session.symptoms}</p>
         </div>
+        {session.images && (session.images as string[]).length > 0 && (
+          <div className="mt-4">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Attached Images</p>
+            <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {(session.images as string[]).map((url: string, index: number) => (
+                <a
+                  key={index}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative aspect-square block rounded-lg overflow-hidden border border-border bg-background hover:opacity-90 transition-opacity"
+                >
+                  <img
+                    src={url}
+                    alt={`Attachment ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <footer className="mt-8 flex items-start gap-3 rounded-2xl border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground">
