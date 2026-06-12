@@ -1,7 +1,7 @@
 import { createUIMessageStream, createUIMessageStreamResponse, generateId, type UIMessage } from "ai"
 import { createClient } from "@/lib/supabase/server"
 
-export const maxDuration = 60
+export const maxDuration = 300
 
 function getMessageText(msg: UIMessage): string {
   if (!msg.parts || !Array.isArray(msg.parts)) return ""

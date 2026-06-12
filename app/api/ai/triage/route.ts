@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server"
 import { triageSchema, type TriageResult, buildTriagePrompt, TRIAGE_SYSTEM_PROMPT } from "@/lib/ai/triage"
 import { getRedirectUrl } from "@/lib/utils"
 
-export const maxDuration = 60
+export const maxDuration = 300
 
 const inputSchema = z.object({
   symptoms: z.string().min(5).max(2000),
