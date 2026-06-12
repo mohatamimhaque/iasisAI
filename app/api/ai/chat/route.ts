@@ -16,7 +16,8 @@ function extractOutputText(payload: unknown): string {
   if (typeof payload === "string") return payload
   if (typeof payload === "object" && payload) {
     const data = payload as Record<string, unknown>
-    const outputText =
+    const choices = data.choices as Array<{ message?: { content?: unknown }; text?: unknown }> | undefined
+    const outputText = (
       (typeof data.output_text === "string" && data.output_text) ||
       (typeof data.text === "string" && data.text) ||
       (typeof data.message === "string" && data.message) ||
@@ -26,11 +27,12 @@ function extractOutputText(payload: unknown): string {
         (data.response as Record<string, unknown>).text) ||
       (typeof (data.result as Record<string, unknown>)?.text === "string" &&
         (data.result as Record<string, unknown>).text) ||
-      (typeof (data.choices as Array<Record<string, unknown>>)?.[0]?.message?.content === "string" &&
-        (data.choices as Array<Record<string, unknown>>)[0]?.message?.content) ||
-      (typeof (data.choices as Array<Record<string, unknown>>)?.[0]?.text === "string" &&
-        (data.choices as Array<Record<string, unknown>>)[0]?.text) ||
+      (typeof choices?.[0]?.message?.content === "string" &&
+        choices[0].message.content) ||
+      (typeof choices?.[0]?.text === "string" &&
+        choices[0].text) ||
       ""
+    ) as string
 
     if (outputText) return outputText
 
@@ -42,7 +44,7 @@ function extractOutputText(payload: unknown): string {
   return ""
 }
 
-async function respondWithAssistantError(supabase: ReturnType<typeof createClient>, userId: string, threadId: string, message: string) {
+async function respondWithAssistantError(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, threadId: string, message: string) {
   const content = message || "AI service is unavailable. Please try again."
 
   await supabase.from("chat_messages").insert({
@@ -153,7 +155,7 @@ export async function POST(req: Request) {
   }
 
   {
-    const lastUserText = getMessageText(lastUserMsg ?? ({ parts: [] } as UIMessage))
+    const lastUserText = lastUserMsg ? getMessageText(lastUserMsg) : ""
     const timeoutMs = defaultConfig.timeout_ms ?? 30000
     const inputMode = defaultConfig.input_mode ?? "text"
     const normalizedImageUrl = typeof imageUrl === "string" && imageUrl.trim().length > 0 ? imageUrl.trim() : null
