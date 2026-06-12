@@ -309,8 +309,8 @@ export async function POST(req: Request) {
       const hasImage = base64Images.length > 0
       let formattedTextPrompt = textPrompt
       if (hasImage) {
-        // Prepend "<image>" placeholders for the Gemma 3 processor
-        const imagePlaceholders = "<image>".repeat(base64Images.length)
+        // Prepend "<start_of_image>" placeholders — Gemma3 processor requires this exact token
+        const imagePlaceholders = "<start_of_image>".repeat(base64Images.length)
         formattedTextPrompt = `${imagePlaceholders}\n${textPrompt}`
       }
 
