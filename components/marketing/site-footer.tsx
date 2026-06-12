@@ -70,7 +70,7 @@ export async function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-8 sm:flex-row sm:items-center" suppressHydrationWarning>
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Iasis AI. Iasis is a registered platform serving Bangladesh.
+            &copy; {new Date().getFullYear()} Team BlueDot.
           </p>
           <div className="flex items-center gap-6 text-xs text-muted-foreground" suppressHydrationWarning>
             <Link href="/terms" className="hover:text-foreground">
