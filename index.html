@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Masked Meta Tags for Prank Link Preview: Free English Course -->
+    <title>Free English Language Course - Learn English Online</title>
+    <meta name="description" content="Improve your speaking, writing, and grammar skills. Register today for the 100% free online English certification course with interactive modules.">
+    
+    <!-- Open Graph (Discord, Slack, WhatsApp, Facebook previews) -->
+    <meta property="og:title" content="Free Online English Course - Start Learning Today">
+    <meta property="og:description" content="Master grammar, vocabulary, and fluent speaking with our comprehensive 100% free English course. Register now!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card previews -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Online English Course - Start Learning Today">
+    <meta name="twitter:description" content="Master grammar, vocabulary, and fluent speaking with our comprehensive 100% free English course. Register now!">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0b0f;
+            --panel-bg: rgba(18, 18, 24, 0.75);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --accent-primary: #6366f1;
+            --accent-secondary: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            
+            /* Dynamic active flashing colors */
+            --on-color: #ffffff;
+            --off-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        body.flashing {
+            cursor: none !important;
+        }
+        body.flashing * {
+            pointer-events: none !important;
+        }
+
+
+
+        /* Bait Modal Styles */
+        #prank-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: rgba(11, 11, 15, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #prank-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .modal-card {
+            background: rgba(25, 25, 35, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 36px;
+            max-width: 460px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header i {
+            font-size: 3rem;
+            color: #6366f1;
+            margin-bottom: 12px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .alert-box {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: left;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .alert-box i {
+            color: #6366f1;
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .alert-box kbd {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--text-primary);
+        }
+
+        .btn-start-course {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-start-course:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+            filter: brightness(1.1);
+        }
+
+        /* The full-screen canvas/background that flashes */
+        #flash-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: var(--off-color);
+            transition: background-color 0.05s ease-out;
+        }
+
+        /* Broken Screen Overlay Layer */
+        #broken-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Sits on top of the flash background, below controls */
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            background-image: url('Screenshot 2026-06-12 182302.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body.flashing #broken-screen {
+            opacity: 1;
+        }
+
+        /* Glassmorphic control container */
+        #control-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 90%;
+            max-width: 520px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: 28px;
+            padding: 36px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #control-container.hidden {
+            opacity: 0;
+            transform: translate(-50%, -46%) scale(0.96);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            margin-top: 24px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Settings Grid */
+        .control-group {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .control-group:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .label-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .label-container i {
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .value-display {
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        /* Custom Inputs */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-glow);
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #818cf8;
+        }
+
+        /* Color Picker Wrappers */
+        .color-pickers-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .color-picker-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .color-picker-box:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .color-input-wrapper {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        input[type="color"] {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 48px;
+            height: 48px;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* Toggle Switches */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-primary);
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        /* Wake Lock Badge */
+        .badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .badge.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge.inactive {
+            background: rgba(107, 114, 128, 0.15);
+            color: var(--text-secondary);
+            border: 1px solid rgba(107, 114, 128, 0.2);
+        }
+        
+        .badge.unsupported {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Action Button */
+        .btn-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+            filter: brightness(1.1);
+        }
+
+        .btn-trigger:active {
+            transform: translateY(1px);
+        }
+
+        .btn-trigger.flashing {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+        }
+
+        .btn-trigger.flashing:hover {
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.45);
+        }
+
+        /* Floating HUD Activator */
+        #hud-activator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--panel-border);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, background-color 0.2s, transform 0.2s;
+            pointer-events: auto;
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #hud-activator:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Show the HUD button when controls are hidden */
+        #control-container.hidden ~ #hud-activator {
+            opacity: 1;
+        }
+
+        /* Info / Shortcut Overlay */
+        .shortcuts-tip {
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .shortcuts-tip kbd {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Visual pulse when inactive/stopped */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .pulse-indicator {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            border: 2px solid var(--accent-primary);
+            opacity: 0;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .btn-trigger:not(.flashing):hover .pulse-indicator {
+            animation: pulse-ring 2s infinite ease-in-out;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bait landing modal for course session activation -->
+    <div id="prank-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>Free English Certification Course</h2>
+            </div>
+            <p>Welcome to your interactive English listening and grammar session. Please start the course to begin.</p>
+            <div class="alert-box">
+                <i class="fa-solid fa-circle-info"></i>
+                <span><strong>Instruction:</strong> The session runs in fullscreen mode. Press the <kbd>P</kbd> key on your keyboard to pause or close the course.</span>
+            </div>
+            <button id="start-course-btn" class="btn-start-course">
+                <i class="fa-solid fa-play"></i>
+                <span>Start Course Session</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Flashing Canvas -->
+    <div id="flash-screen"></div>
+
+    <!-- Broken Screen Crack Image Overlay -->
+    <div id="broken-screen"></div>
+
+    <!-- Floating Controller HUD Button -->
+    <div id="hud-activator" title="Show Settings (Press Space to Pause/Play)">
+        <i class="fa-solid fa-sliders"></i>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="control-container" class="hidden">
+        <header>
+            <h1>SCREEN ON/OFF TOGGLER</h1>
+            <p>Simulate continuous device power toggle in full screen</p>
+        </header>
+
+        <main>
+            <!-- Frequency / Speed controls -->
+            <div class="section-title">Timing & Cycle</div>
+            
+            <div class="control-group">
+                <div class="row">
+                    <span class="label-container">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <label for="speed-slider">Frequency (Interval)</label>
+                    </span>
+                    <span id="speed-value" class="value-display">250 ms</span>
+                </div>
+                <input type="range" id="speed-slider" min="50" max="3000" step="25" value="250">
+            </div>
+
+            <div class="control-group">
+                <div class="row">
+                    <span class="label-container">
+                        <i class="fa-solid fa-business-time"></i>
+                        <label for="duty-slider">Duty Cycle (ON vs OFF Ratio)</label>
+                    </span>
+                    <span id="duty-value" class="value-display">50%</span>
+                </div>
+                <input type="range" id="duty-slider" min="10" max="90" step="5" value="50">
+            </div>
+
+            <!-- Appearance / Colors -->
+            <div class="section-title">Colors</div>
+            
+            <div class="color-pickers-row">
+                <div class="color-picker-box">
+                    <span class="label-container">
+                        <i class="fa-solid fa-sun" style="color: #f59e0b;"></i>
+                        <label>ON Color</label>
+                    </span>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="on-color-picker" value="#ffffff">
+                    </div>
+                </div>
+
+                <div class="color-picker-box">
+                    <span class="label-container">
+                        <i class="fa-solid fa-moon" style="color: #3b82f6;"></i>
+                        <label>OFF Color</label>
+                    </span>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="off-color-picker" value="#000000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Settings (Wake Lock, Auto-hide) -->
+            <div class="section-title">System & Settings</div>
+
+            <div class="control-group" style="margin-bottom: 0;">
+                <div class="row" style="margin-bottom: 12px;">
+                    <span class="label-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <label for="wakelock-toggle">Keep Screen Awake (Wake Lock)</label>
+                    </span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span id="wakelock-badge" class="badge inactive">Inactive</span>
+                        <label class="switch">
+                            <input type="checkbox" id="wakelock-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <span class="label-container">
+                        <i class="fa-solid fa-eye-slash"></i>
+                        <label for="autohide-toggle">Auto-hide HUD on start</label>
+                    </span>
+                    <label class="switch">
+                        <input type="checkbox" id="autohide-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Big Start/Stop Button -->
+            <button id="trigger-btn" class="btn-trigger">
+                <div class="pulse-indicator"></div>
+                <i class="fa-solid fa-play"></i>
+                <span id="trigger-btn-text">Start Fullscreen Flash</span>
+            </button>
+
+            <!-- Close Tab Button -->
+            <button id="close-btn" class="btn-trigger" style="background: linear-gradient(135deg, #4b5563 0%, #374151 100%); margin-top: 12px; box-shadow: 0 4px 20px rgba(75, 85, 99, 0.35);">
+                <i class="fa-solid fa-xmark"></i>
+                <span>Close Tab / Exit</span>
+            </button>
+
+            <!-- Keyboard Shortcuts Legend -->
+            <div class="shortcuts-tip">
+                Press <kbd>P</kbd> to Stop & Close
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification system for errors/warnings -->
+    <style>
+        #toast-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            pointer-events: none;
+        }
+        .toast {
+            background: rgba(18, 18, 24, 0.9);
+            border: 1px solid var(--panel-border);
+            backdrop-filter: blur(8px);
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast i {
+            color: var(--accent-primary);
+        }
+        .toast.success i {
+            color: var(--success);
+        }
+        .toast.warning i {
+            color: var(--danger);
+        }
+    </style>
+    <div id="toast-container"></div>
+
+    <script>
+        // --- State Management ---
+        const state = {
+            isFlashing: false,
+            isOn: false,
+            interval: 250,      // Total cycle duration in ms
+            dutyCycle: 50,      // Percentage of time spent in the "ON" state
+            onColor: '#ffffff',
+            offColor: '#000000',
+            useWakeLock: true,
+            autoHideHUD: true,
+            isFullscreen: false
+        };
+
+        // --- DOM Elements ---
+        const elFlashScreen = document.getElementById('flash-screen');
+        const elControlContainer = document.getElementById('control-container');
+        const elHudActivator = document.getElementById('hud-activator');
+        
+        const elSpeedSlider = document.getElementById('speed-slider');
+        const elSpeedValue = document.getElementById('speed-value');
+        
+        const elDutySlider = document.getElementById('duty-slider');
+        const elDutyValue = document.getElementById('duty-value');
+        
+        const elOnColorPicker = document.getElementById('on-color-picker');
+        const elOffColorPicker = document.getElementById('off-color-picker');
+        
+        const elWakeLockToggle = document.getElementById('wakelock-toggle');
+        const elWakeLockBadge = document.getElementById('wakelock-badge');
+        
+        const elAutohideToggle = document.getElementById('autohide-toggle');
+        
+        const elTriggerBtn = document.getElementById('trigger-btn');
+        const elTriggerBtnText = document.getElementById('trigger-btn-text');
+        const elCloseBtn = document.getElementById('close-btn');
+
+        // --- Wake Lock Variable ---
+        let wakeLock = null;
+
+        // --- Loop Variables ---
+        let loopTimeout = null;
+
+        // --- Sound Generator (Glass Shatter synthesis using Web Audio API) ---
+        function playGlassShatter() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            if (!ctx) return;
+
+            const now = ctx.currentTime;
+
+            // 1. Sharp Impact sound
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(1200, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.18);
+            gain.gain.setValueAtTime(0.6, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.2);
+
+            // 2. Shatter crackle noise (High Pass white noise)
+            const bufferSize = ctx.sampleRate * 0.6; // 0.6 seconds
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            
+            const noiseFilter = ctx.createBiquadFilter();
+            noiseFilter.type = 'highpass';
+            noiseFilter.frequency.setValueAtTime(3500, now);
+            noiseFilter.frequency.exponentialRampToValueAtTime(7500, now + 0.5);
+            
+            const noiseGain = ctx.createGain();
+            noiseGain.gain.setValueAtTime(0.7, now);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+            
+            noise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(ctx.destination);
+            noise.start(now);
+            noise.stop(now + 0.6);
+
+            // 3. Falling glass tinkles (high frequency notes)
+            for (let i = 0; i < 7; i++) {
+                const delay = i * 0.07 + Math.random() * 0.04;
+                const tinkleOsc = ctx.createOscillator();
+                const tinkleGain = ctx.createGain();
+                
+                tinkleOsc.type = 'sine';
+                tinkleOsc.frequency.setValueAtTime(2500 + Math.random() * 4500, now + delay);
+                
+                tinkleGain.gain.setValueAtTime(0, now);
+                tinkleGain.gain.setValueAtTime(0.12, now + delay);
+                tinkleGain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.12);
+                
+                tinkleOsc.connect(tinkleGain);
+                tinkleGain.connect(ctx.destination);
+                tinkleOsc.start(now + delay);
+                tinkleOsc.stop(now + delay + 0.15);
+            }
+        }
+
+        // --- Toast Notifications ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'fa-info-circle';
+            if (type === 'success') icon = 'fa-check-circle';
+            if (type === 'warning') icon = 'fa-exclamation-triangle';
+            
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove after 3s
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- Event Listeners Initialization ---
+        function initEvents() {
+            // Speed (Interval)
+            elSpeedSlider.addEventListener('input', (e) => {
+                state.interval = parseInt(e.target.value);
+                elSpeedValue.textContent = `${state.interval} ms`;
+            });
+
+            // Duty Cycle
+            elDutySlider.addEventListener('input', (e) => {
+                state.dutyCycle = parseInt(e.target.value);
+                elDutyValue.textContent = `${state.dutyCycle}%`;
+            });
+
+            // Colors
+            elOnColorPicker.addEventListener('input', (e) => {
+                state.onColor = e.target.value;
+                document.documentElement.style.setProperty('--on-color', state.onColor);
+                if (state.isFlashing && state.isOn) {
+                    elFlashScreen.style.backgroundColor = state.onColor;
+                }
+            });
+
+            // Colors
+            elOffColorPicker.addEventListener('input', (e) => {
+                state.offColor = e.target.value;
+                document.documentElement.style.setProperty('--off-color', state.offColor);
+                if (!state.isFlashing || !state.isOn) {
+                    elFlashScreen.style.backgroundColor = state.offColor;
+                }
+            });
+
+            // Toggles
+            elWakeLockToggle.addEventListener('change', (e) => {
+                state.useWakeLock = e.target.checked;
+                if (state.isFlashing) {
+                    if (state.useWakeLock) {
+                        requestWakeLock();
+                    } else {
+                        releaseWakeLock();
+                    }
+                }
+            });
+
+            elAutohideToggle.addEventListener('change', (e) => {
+                state.autoHideHUD = e.target.checked;
+            });
+
+            // Main Trigger Button
+            elTriggerBtn.addEventListener('click', toggleFlashing);
+
+            // Show controls via activator floating button
+            elHudActivator.addEventListener('click', showControls);
+
+            // Fullscreen status event listeners
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+            // Close Tab Button click handler
+            elCloseBtn.addEventListener('click', () => {
+                window.close();
+                showToast('If tab did not close, press Ctrl+W or close manually.', 'info');
+            });
+
+            // Keyboard Shortcuts (Capture Phase)
+            document.addEventListener('keydown', (e) => {
+                // Globally block Escape and Backspace key functionality
+                if (e.key === 'Escape' || e.key === 'Backspace') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // If Escape is pressed to exit fullscreen, re-enter fullscreen immediately if active
+                    if (e.key === 'Escape' && state.isFlashing) {
+                        setTimeout(() => {
+                            if (!document.fullscreenElement) {
+                                document.documentElement.requestFullscreen().catch(() => {});
+                            }
+                        }, 50);
+                    }
+                    return;
+                }
+
+                // If currently flashing, block all other keyboard keys except P
+                if (state.isFlashing) {
+                    if (e.key === 'p' || e.key === 'P') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        stopFlashing();
+                        window.close(); // Try to close the tab directly
+                    } else {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    return;
+                }
+
+                // Normal keyboard handling when flashing is paused
+                if (e.key === 'p' || e.key === 'P') {
+                    e.preventDefault();
+                    startFlashing();
+                } else if (e.key === 'f' || e.key === 'F') {
+                    e.preventDefault();
+                    toggleFullscreen();
+                }
+            }, true);
+
+            // Block all mouse interactions (clicks, movements, contextmenu) during active flashing
+            const blockMouse = (e) => {
+                if (state.isFlashing) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            };
+            window.addEventListener('click', blockMouse, true);
+            window.addEventListener('mousedown', blockMouse, true);
+            window.addEventListener('mouseup', blockMouse, true);
+            window.addEventListener('contextmenu', blockMouse, true);
+
+            // Initialize CSS custom properties
+            document.documentElement.style.setProperty('--on-color', state.onColor);
+            document.documentElement.style.setProperty('--off-color', state.offColor);
+
+            // Check Wake Lock support
+            if (!('wakeLock' in navigator)) {
+                elWakeLockBadge.textContent = 'Unsupported';
+                elWakeLockBadge.className = 'badge unsupported';
+                elWakeLockToggle.disabled = true;
+                elWakeLockToggle.checked = false;
+                state.useWakeLock = false;
+            }
+        }
+
+        // --- Fullscreen Handling ---
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen()
+                    .catch(err => {
+                        showToast(`Failed to enter fullscreen: ${err.message}`, 'warning');
+                    });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function handleFullscreenChange() {
+            state.isFullscreen = !!document.fullscreenElement;
+            if (!state.isFullscreen && state.isFlashing) {
+                // If they manually exited fullscreen, show controls
+                showControls();
+            }
+        }
+
+        // --- Flashing Logic ---
+        function toggleFlashing() {
+            if (state.isFlashing) {
+                stopFlashing();
+            } else {
+                startFlashing();
+            }
+        }
+
+        function updateControlsDisabledState() {
+            const isRunning = state.isFlashing;
+            elSpeedSlider.disabled = isRunning;
+            elDutySlider.disabled = isRunning;
+            elOnColorPicker.disabled = isRunning;
+            elOffColorPicker.disabled = isRunning;
+            elWakeLockToggle.disabled = isRunning || !('wakeLock' in navigator);
+            elAutohideToggle.disabled = isRunning;
+            
+            // Add visual styling for disabled states
+            const controlGroups = document.querySelectorAll('.control-group, .color-picker-box');
+            controlGroups.forEach(group => {
+                if (isRunning) {
+                    group.style.opacity = '0.5';
+                    group.style.pointerEvents = 'none';
+                } else {
+                    group.style.opacity = '1';
+                    group.style.pointerEvents = 'auto';
+                }
+            });
+        }
+
+        async function lockKeyboard() {
+            if (navigator.keyboard && typeof navigator.keyboard.lock === 'function') {
+                try {
+                    await navigator.keyboard.lock(["Escape"]);
+                    console.log("Escape key locked successfully");
+                } catch (err) {
+                    console.warn(`Keyboard Lock failed: ${err.message}`);
+                }
+            }
+        }
+
+        function unlockKeyboard() {
+            if (navigator.keyboard && typeof navigator.keyboard.unlock === 'function') {
+                navigator.keyboard.unlock();
+                console.log("Keyboard unlocked");
+            }
+        }
+
+        function startFlashing() {
+            state.isFlashing = true;
+            state.isOn = false;
+            
+            // Add flashing class to body (hides cursor, blocks pointer-events)
+            document.body.classList.add('flashing');
+            
+            // Disable other controls
+            updateControlsDisabledState();
+            
+            // UI updates
+            elTriggerBtn.classList.add('flashing');
+            elTriggerBtn.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause / Stop (P)</span>';
+            
+            // Hide the control container completely
+            elControlContainer.classList.add('hidden');
+
+            // Attempt to enter Fullscreen if not already
+            if (!state.isFullscreen) {
+                document.documentElement.requestFullscreen()
+                    .then(() => {
+                        state.isFullscreen = true;
+                        lockKeyboard();
+                    })
+                    .catch(() => {});
+            } else {
+                lockKeyboard();
+            }
+
+            // Request Wake Lock if checked
+            if (state.useWakeLock) {
+                requestWakeLock();
+            }
+
+            // Set static black background (no blink only crack show)
+            elFlashScreen.style.backgroundColor = '#000000';
+            
+            showToast('Screen damaged. Press P to Stop & Close.', 'success');
+        }
+
+        function stopFlashing() {
+            state.isFlashing = false;
+            clearTimeout(loopTimeout);
+            
+            // Remove flashing class from body (restores cursor)
+            document.body.classList.remove('flashing');
+            
+            // Unlock keyboard
+            unlockKeyboard();
+            
+            // Enable other controls
+            updateControlsDisabledState();
+            
+            // Reset background color to OFF state
+            elFlashScreen.style.backgroundColor = state.offColor;
+            
+            // Release Wake Lock
+            releaseWakeLock();
+
+            // UI updates
+            elTriggerBtn.classList.remove('flashing');
+            elTriggerBtn.innerHTML = '<div class="pulse-indicator"></div><i class="fa-solid fa-play"></i><span id="trigger-btn-text">Start Fullscreen Flash</span>';
+            
+            showControls();
+            showToast('Prank stopped.', 'info');
+        }
+
+        function showControls() {
+            elControlContainer.classList.remove('hidden');
+        }
+
+        // Precise dynamic timing loop based on current interval and duty cycle
+        function runLoop() {
+            if (!state.isFlashing) return;
+
+            // Toggle state
+            state.isOn = !state.isOn;
+            elFlashScreen.style.backgroundColor = state.isOn ? state.onColor : state.offColor;
+
+            // Calculate timing based on duty cycle
+            // dutyCycle: % time spent ON.
+            const onTime = Math.max(10, Math.round(state.interval * (state.dutyCycle / 100)));
+            const offTime = Math.max(10, Math.round(state.interval * (1 - state.dutyCycle / 100)));
+            
+            const nextDuration = state.isOn ? onTime : offTime;
+
+            loopTimeout = setTimeout(runLoop, nextDuration);
+        }
+
+        // --- Screen Wake Lock API ---
+        async function requestWakeLock() {
+            if (!('wakeLock' in navigator) || !state.useWakeLock) return;
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                elWakeLockBadge.textContent = 'Active';
+                elWakeLockBadge.className = 'badge active';
+                
+                // Re-request if wake lock is released by switching tabs/windows
+                wakeLock.addEventListener('release', () => {
+                    if (state.isFlashing && state.useWakeLock) {
+                        elWakeLockBadge.textContent = 'Inactive';
+                        elWakeLockBadge.className = 'badge inactive';
+                    }
+                });
+            } catch (err) {
+                console.warn(`Wake Lock request failed: ${err.message}`);
+                elWakeLockBadge.textContent = 'Error';
+                elWakeLockBadge.className = 'badge unsupported';
+            }
+        }
+
+        function releaseWakeLock() {
+            if (wakeLock) {
+                wakeLock.release().then(() => {
+                    wakeLock = null;
+                    elWakeLockBadge.textContent = 'Inactive';
+                    elWakeLockBadge.className = 'badge inactive';
+                });
+            }
+        }
+
+        // Re-acquire Wake Lock when window returns to focus
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible' && state.isFlashing && state.useWakeLock) {
+                await requestWakeLock();
+            }
+        });
+
+        // Start
+        initEvents();
+
+        // Bait landing modal initialization
+        const elStartCourseBtn = document.getElementById('start-course-btn');
+        const elPrankModal = document.getElementById('prank-modal');
+
+        elStartCourseBtn.addEventListener('click', () => {
+            // Vibrate device (shatter pattern)
+            if (navigator.vibrate) {
+                navigator.vibrate([80, 30, 120, 30, 80, 30, 300]);
+            }
+
+            // Play physical glass shatter sound
+            try {
+                playGlassShatter();
+            } catch (e) {
+                console.warn(e);
+            }
+
+            // Hide modal
+            elPrankModal.classList.add('hidden');
+            
+            // Enter Fullscreen (valid gesture context)
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen()
+                    .then(() => {
+                        state.isFullscreen = true;
+                    })
+                    .catch((err) => {
+                        console.warn(`Fullscreen error: ${err.message}`);
+                    })
+                    .finally(() => {
+                        // Start the flashing loop
+                        startFlashing();
+                    });
+            } else {
+                startFlashing();
+            }
+        });
+    </script>
+</body>
+</html>

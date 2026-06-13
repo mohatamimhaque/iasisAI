@@ -63,6 +63,23 @@ async function uploadBase64Images(userId: string, base64Images: string[]): Promi
   return publicUrls
 }
 
+function normalizeUrgency(urgency: string | undefined | null): "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" {
+  if (!urgency) return "MEDIUM"
+  const val = urgency.trim().toUpperCase()
+  if (val === "LOW" || val === "MILD") return "LOW"
+  if (val === "MEDIUM" || val === "MODERATE" || val === "NORMAL") return "MEDIUM"
+  if (val === "HIGH" || val === "URGENT" || val === "SOON") return "HIGH"
+  if (val === "CRITICAL" || val === "SEVERE" || val === "EMERGENCY" || val === "IMMEDIATE") return "CRITICAL"
+
+  // Substring checks
+  if (val.includes("LOW") || val.includes("MILD")) return "LOW"
+  if (val.includes("MODERATE") || val.includes("MEDIUM") || val.includes("NORMAL")) return "MEDIUM"
+  if (val.includes("HIGH") || val.includes("URGENT")) return "HIGH"
+  if (val.includes("CRITICAL") || val.includes("SEVERE") || val.includes("EMERGENCY") || val.includes("IMMEDIATE")) return "CRITICAL"
+
+  return "MEDIUM"
+}
+
 function parseAssessmentToTriageResult(assessment: string, symptoms: string): TriageResult {
   const possible_conditions: Array<{ name: string; probability: number; explanation: string }> = []
   const red_flags: string[] = []
@@ -284,7 +301,7 @@ export async function POST(req: Request) {
     // 3. Retrieve dynamic MedGemma endpoint from Firebase Realtime Database
     let medgemmaUrl = ""
     try {
-      const fbRes = await fetch("https://iasis-6e66e-default-rtdb.firebaseio.com/services/medgemma.json")
+      const fbRes = await fetch("https://iasis-6e66e-default-rtdb.firebaseio.com/services/medgemma.json", { cache: "no-store" })
       if (fbRes.ok) {
         const fbData = await fbRes.json()
         medgemmaUrl = fbData?.url || ""
@@ -405,21 +422,33 @@ export async function POST(req: Request) {
     result = generateDemo(parsed.data.symptoms)
   }
 
+  // Normalize urgency to ensure it matches the database check constraint ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL')
+  result.urgency = normalizeUrgency(result.urgency)
+
   // 5. Persist the session
   console.log("[Triage API] Persisting triage session into database...")
+
+  // Build insert payload conditionally — only include `images` when URLs exist.
+  // Always sending images:null fails if the add_images_to_triage.sql migration hasn't been run yet.
+  const insertPayload: Record<string, unknown> = {
+    user_id: user.id,
+    symptoms: parsed.data.symptoms,
+    duration: parsed.data.duration,
+    severity: parsed.data.severity,
+    age,
+    gender: profile?.gender ?? null,
+    result,
+    urgency: result.urgency,
+    model_used: "MedGemma-1.5-4b-it (Kaggle)",
+  }
+  if (publicUrls.length > 0) {
+    insertPayload.images = publicUrls
+  }
+
   const { data: session, error: insertError } = await supabase
     .from("triage_sessions")
     .insert({
-      user_id: user.id,
-      symptoms: parsed.data.symptoms,
-      duration: parsed.data.duration,
-      severity: parsed.data.severity,
-      age,
-      gender: profile?.gender ?? null,
-      result,
-      urgency: result.urgency,
-      model_used: "MedGemma-1.5-4b-it (Kaggle)",
-      images: publicUrls.length > 0 ? publicUrls : null,
+      ...insertPayload,
     })
     .select("id")
     .single()

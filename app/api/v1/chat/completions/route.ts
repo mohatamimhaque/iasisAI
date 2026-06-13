@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     // 1. Resolve active MedGemma endpoint from Firebase Realtime Database
     let medgemmaUrl = ""
     try {
-      const fbRes = await fetch("https://iasis-6e66e-default-rtdb.firebaseio.com/services/medgemma.json")
+      const fbRes = await fetch("https://iasis-6e66e-default-rtdb.firebaseio.com/services/medgemma.json", { cache: "no-store" })
       if (fbRes.ok) {
         const fbData = await fbRes.json()
         medgemmaUrl = fbData?.url || ""
